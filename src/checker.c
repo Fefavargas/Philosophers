@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:36:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 15:19:26 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:12:57 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_nbr(char *str)
 			return (0);
 	}
 	nbr = ft_atoi(str);
-	if (nbr < INT_MIN || nbr > INT_MAX)
+	if (nbr < 0 || nbr > INT_MAX)
 		return (0);
 	return (1);
 }
