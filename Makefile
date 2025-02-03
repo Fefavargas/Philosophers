@@ -6,7 +6,7 @@
 #    By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 14:11:54 by fvargas           #+#    #+#              #
-#    Updated: 2025/02/03 14:51:27 by fvargas          ###   ########.fr        #
+#    Updated: 2025/02/03 18:27:49 by fvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = 		philosophers
 CC = 		cc
 CFLAGS = 	-Wall -Wextra -Werror -g
 HDRS :=		src/philosophers.h
-SRCS =		src/checker.c src/create.c src/main.c src/util.c
+SRCS =		src/checker.c src/create.c src/error.c src/main.c src/mutex.c src/util.c
 
 OBJS = 		$(SRCS:.c =.o)
 

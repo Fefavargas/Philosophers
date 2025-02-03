@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:15:53 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 17:48:41 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 20:14:21 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_fork_index(t_default *def, size_t index)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i > 0 && i < index)
@@ -24,13 +24,13 @@ void	free_fork_index(t_default *def, size_t index)
 
 void	free_def(t_default *def)
 {
-	int	i;
+	size_t	i;
 
-	i = -1;
+	i = 0;
 	if (!def->philos)
 	{
-		while (++i < def->n_philo)
-			free(&def->philos[i]);
+		while (i < def->n_philo)
+			free(&def->philos[i++]);
 		free(def->philos);
 	}
 	free_fork_index(def, def->n_philo);

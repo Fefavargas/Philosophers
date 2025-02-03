@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 17:52:01 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 20:16:06 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	init_philo(t_default *def, int index)
 
 bool	create_philo(t_default *def)
 {
-	int	i;
+	size_t	i;
 
 	def->philos = (t_philo *)malloc(sizeof(t_philo) * def->n_philo);
 	if (!def->philos)
@@ -28,21 +28,32 @@ bool	create_philo(t_default *def)
 		print_err_free_def(def, ERR_MALLOC);
 		return (0);
 	}
-	i = -1;
-	while (++i < def->n_philo)
-	{
-		init_philo(def, i);
-	}
+	i = 0;
+	while (i < def->n_philo)
+		init_philo(def, i++);
 	return (1);
 }
 
 bool	create_fork(t_default *def)
 {
+	size_t	i;
+
 	def->forks = malloc(sizeof(t_fork) * def->n_philo);
-	if (def->forks)
+	if (!def->forks)
 	{
 		print_err_free_def(def, ERR_MALLOC);
 		return (0);
+	}
+	i = 0;
+	while (i < def->n_philo)
+	{
+		if (!mtx_action(&def->forks[i].fork, INIT, def))
+		{
+			free_fork_index(def, i);
+			return (0);
+		}
+		def->forks[i].id = i;
+		i++;
 	}
 	return (1);
 }
@@ -62,6 +73,7 @@ bool	create_default(int argc, char **argv, t_default *def)
 	def->t_die = ft_atoi(argv[2]);
 	def->t_eat = ft_atoi(argv[3]);
 	def->t_sleep = ft_atoi(argv[4]);
+	def->t_think = def->t_die - def->t_eat - def->t_sleep;
 	def->n_eats = -1;
 	if (argc == 6)
 		def->n_eats = ft_atoi(argv[5]);
