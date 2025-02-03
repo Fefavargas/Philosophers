@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:36:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/01/28 15:04:19 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 15:19:26 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	check_nbr(char *str)
 	flag = 1;
 	while (str[j])
 	{
-		if (str[j] == '-' && flag)
-			j++;
 		if (str[j] == '+' && flag)
 			j++;
 		flag = 0;

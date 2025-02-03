@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 14:36:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/01/28 15:00:04 by fvargas          ###   ########.fr       */
+/*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
+/*   Updated: 2025/02/03 14:57:16 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long	ft_atoi(const char *nptr)
+void	solution(t_default def)
 {
-	int		sign;
-	long	result;
+	def.t_die = 3;
+	printf("%d\n", def.t_die);
+	return ;
+}
 
-	sign = 1;
-	result = 0;
-	while (*nptr && (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13)))
-		nptr++;
-	if (*nptr == '-')
-		sign *= -1;
-	if (*nptr == '-' || *nptr == '+')
-		nptr++;
-	while (*nptr >= '0' && *nptr <= '9')
+int	main(int argc, char **argv)
+{
+	t_default	def;
+
+	if (argc != 5 && argc != 6)
 	{
-		result *= 10;
-		result += *nptr - '0';
-		nptr++;
+		printf("This program should receive 4 or 5 arguments.\n");
+		return (0);
 	}
-	return (result * sign);
+	if (!checker_args(argv))
+		return (0);
+	def = create_default(argc, argv);
+	solution(def);
+	return (0);
 }

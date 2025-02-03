@@ -1,45 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/01/28 15:06:36 by fvargas          ###   ########.fr       */
+/*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
+/*   Updated: 2025/02/03 15:27:07 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-t_default create_deafault(int argc, char **argv)
+t_default create_default(int argc, char **argv)
 {
 	t_default	def;
 	size_t		i;
 
 	i = 0;
-	def.n_philosophers = ft_atoi(argv[1]);
-	def.time_die = ft_atoi(argv[2]);
-	def.time_eat = ft_atoi(argv[3]);
-	def.time_sleep = ft_atoi(argv[4]);
+	def.n_philo = ft_atoi(argv[1]);
+	def.t_die = ft_atoi(argv[2]);
+	def.t_eat = ft_atoi(argv[3]);
+	def.t_sleep = ft_atoi(argv[4]);
 	def.n_eats = 0;
+	def.n_eats = -1;
 	if (argc == 6)
 		def.n_eats = ft_atoi(argv[5]);
 	return (def);
 }
 
-int	main(int argc, char **argv)
+static bool	init_philo(t_default def, int index)
 {
-	t_default	def;
+	def.philos[index].n_eats = 0;
+}
 
-	if (argc != 5 && argc != 6)
+bool	*create_philo(t_default def)
+{
+	int	i;
+	
+	def.philos = (t_philo *)malloc(sizeof(t_philo) * def.n_philo);
+	if (!def.philos)
 	{
-		printf("This program should receive 4 or 5 arguments.\n");
+		print_err_free_def(def, ERR_MALLOC);
 		return (0);
 	}
-	if (!checker_args(argv))
-		return (0);
-	def = create_deafault(argc, argv);
-	solution(def);
-	return (0);
+	i = -1;
+	while (++i < def.n_philo)
+	{
+		
+	}
+	return (1);
 }
