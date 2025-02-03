@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:24:44 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 16:59:21 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:46:56 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	mtx_action(t_mtx *mutex, t_mtx_action action, t_default *def)
 {
 	if (mtx_perform_action(mutex, action) != 0)
 	{
-		print_err_free_def(&def, ERR_MTX);
+		print_err_free_def(def, ERR_MTX);
 		return (0);
 	}
 	return (1);

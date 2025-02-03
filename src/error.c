@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:15:53 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 17:15:45 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:48:41 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ void	free_def(t_default *def)
 void	print_err_free_def(t_default *def, char *msg)
 {
 	free_def(def);
-	ft_putstr_fd(msg, stderr);
+	ft_putstr_fd(msg, STDERR_FILENO);
 }

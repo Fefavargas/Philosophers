@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 17:09:37 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:45:51 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_default
 }	t_default;
 
 //create.c
-t_default	create_default(int argc, char **argv);
+bool		create_default(int argc, char **argv, t_default *def);
 
 //checker.c
 bool		checker_args(char **argv);

@@ -6,16 +6,16 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 14:57:16 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/03 17:47:46 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	solution(t_default def)
+void	solution(t_default *def)
 {
-	def.t_die = 3;
-	printf("%d\n", def.t_die);
+	def->t_die = 3;
+	printf("%d\n", def->t_die);
 	return ;
 }
 
@@ -26,11 +26,16 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 	{
 		printf("This program should receive 4 or 5 arguments.\n");
-		return (0);
+		return (1);
 	}
 	if (!checker_args(argv))
-		return (0);
-	def = create_default(argc, argv);
-	solution(def);
+		return (1);
+	create_default(argc, argv, &def);
+	if (&def == NULL)
+	{
+		printf("Program closed.\n");
+		return (1);
+	}
+	solution(&def);
 	return (0);
 }
