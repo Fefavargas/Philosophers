@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:36:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 15:09:14 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/04 20:15:10 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, s, 1);
 		s++;
 	}
+}
+
+int	ft_putstr_fd_return(char *s, int fd, int error)
+{
+	while (*s)
+	{
+		write(fd, s, 1);
+		s++;
+	}
+	return (error);
 }

@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:14:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 19:47:36 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/04 20:03:21 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-unsigned long long	get_time()
+/**
+ 	Returns '0' when error occuors
+			time when sucessed
+ */
+unsigned long long	get_time(void)
 {
 	unsigned long long	time_in_ms;
 	struct timeval		tv;

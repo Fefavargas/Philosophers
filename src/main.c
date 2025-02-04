@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 18:27:00 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/04 20:17:56 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	solution(t_default *def)
+bool	solution(t_default *def)
 {
+	//if (!start_monitoring(def))
+	//	return (0);
+	
 	def->t_die = 3;
 	printf("%d\n", def->t_die);
-	return ;
+	return (1);
 }
 
 int	main(int argc, char **argv)

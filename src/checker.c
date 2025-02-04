@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:36:21 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 17:17:28 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/04 15:41:56 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	checker_args(char **argv)
 	{
 		if (!check_nbr(argv[i]))
 		{
-			printf("The argument %ith is not a integer", i);
+			ft_putstr_fd(ERR_INTEGER, STDERR_FILENO);
 			return (0);
 		}
 	}

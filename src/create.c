@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/03 20:16:06 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/04 20:20:12 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static bool	init_philo(t_default *def, int index)
 {
 	def->philos[index].n_eats = 0;
+	def->philos[index].last_meal = def->t_started;
 	return (1);
 }
 
@@ -29,6 +30,9 @@ bool	create_philo(t_default *def)
 		return (0);
 	}
 	i = 0;
+	def->t_started = get_time();
+	if (!def->t_started)
+		return (0);
 	while (i < def->n_philo)
 		init_philo(def, i++);
 	return (1);
@@ -60,19 +64,17 @@ bool	create_fork(t_default *def)
 
 bool	create_default(int argc, char **argv, t_default *def)
 {
-	size_t		i;
-
 	def = (t_default *)malloc(sizeof(t_default));
 	if (!def)
-	{
-		ft_putstr_fd(ERR_MALLOC, STDERR_FILENO);
-		return (0);
-	}
-	i = 0;
+		return ((bool)ft_putstr_fd_return(ERR_MALLOC, STDERR_FILENO, 0));
 	def->n_philo = ft_atoi(argv[1]);
 	def->t_die = ft_atoi(argv[2]);
 	def->t_eat = ft_atoi(argv[3]);
 	def->t_sleep = ft_atoi(argv[4]);
+	if (!def->n_philo || !def->t_die || !def->t_eat || !def->t_sleep)
+		return ((bool)ft_putstr_fd_return(ERR_ZERO_ARG, STDERR_FILENO, 0));
+	if (def->t_die < def->t_eat + def->t_sleep)
+		return ((bool)ft_putstr_fd_return(ERR_TIME_DIE, STDERR_FILENO, 0));
 	def->t_think = def->t_die - def->t_eat - def->t_sleep;
 	def->n_eats = -1;
 	if (argc == 6)
