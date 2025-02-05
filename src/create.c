@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/04 20:20:12 by fefa             ###   ########.fr       */
+/*   Updated: 2025/02/05 13:46:40 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ bool	create_philo(t_default *def)
 		return (0);
 	}
 	i = 0;
-	def->t_started = get_time();
-	if (!def->t_started)
-		return (0);
+	//def->t_started = get_time(); PUT IT BACK
+	//if (!def->t_started)
+	//	return (0);
 	while (i < def->n_philo)
 		init_philo(def, i++);
 	return (1);
@@ -73,9 +73,10 @@ bool	create_default(int argc, char **argv, t_default *def)
 	def->t_sleep = ft_atoi(argv[4]);
 	if (!def->n_philo || !def->t_die || !def->t_eat || !def->t_sleep)
 		return ((bool)ft_putstr_fd_return(ERR_ZERO_ARG, STDERR_FILENO, 0));
-	if (def->t_die < def->t_eat + def->t_sleep)
-		return ((bool)ft_putstr_fd_return(ERR_TIME_DIE, STDERR_FILENO, 0));
-	def->t_think = def->t_die - def->t_eat - def->t_sleep;
+	//Understand if t_die could be smaller than t_sleep + t_eat
+	//if (def->t_die < def->t_eat + def->t_sleep)
+	//	return ((bool)ft_putstr_fd_return(ERR_TIME_DIE, STDERR_FILENO, 0));
+	//def->t_think = def->t_die - def->t_eat - def->t_sleep;
 	def->n_eats = -1;
 	if (argc == 6)
 		def->n_eats = ft_atoi(argv[5]);

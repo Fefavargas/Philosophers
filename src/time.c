@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:14:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/04 20:03:21 by fefa             ###   ########.fr       */
+/*   Updated: 2025/02/05 12:38:59 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
 /**
  	Returns '0' when error occuors
 			time when sucessed
@@ -37,7 +38,7 @@ bool	precise_wait(unsigned int waiting_time)
 	t_started = get_time();
 	if (!t_started)
 		return (0);
-	while(1)
+	while (1)
 	{
 		t_current = get_time();
 		if (!t_current)
