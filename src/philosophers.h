@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/05 13:46:18 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/05 19:31:14 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,34 @@ typedef enum e_mtx_action
 	DESTROY
 }	t_mtx_action;
 
-typedef struct s_fork
+typedef enum e_philo_action
 {
-	int		id;
-	t_mtx	fork;
-}	t_fork;
+	FORK = 1,
+	EAT,
+	SLEEP,
+	THINK,
+	DIE
+}	t_philo_action;
+
+// typedef struct s_fork
+// {
+// 	int		id;
+// 	t_mtx	fork;
+// }	t_fork;
 
 typedef struct s_philo
 {
 	pthread_t			thread_id;
-	int					t_die;
-	int					t_eat;
-	int					t_sleep;
+	int					id;
+	unsigned long long	t_started;
+	unsigned int		t_die;
+	unsigned int		t_eat;
+	unsigned int		t_sleep;
 	int					n_eats;
-	pthread_mutex_t		*meal_lock;
+	t_mtx				*meal_lock;
 	unsigned long long	last_meal;
+	t_mtx				*r_fork;
+	t_mtx				*l_fork;
 }	t_philo;
 
 typedef struct s_default
@@ -66,10 +79,9 @@ typedef struct s_default
 	unsigned int		t_die;
 	unsigned int		t_eat;
 	unsigned int		t_sleep;
-	unsigned int		t_think;
-	unsigned int		n_eats;
+	int					n_eats;
 	t_philo				*philos;
-	t_fork				*forks;
+	t_mtx				*forks;
 	unsigned long long	t_started;
 	pthread_t			monitor;
 }	t_default;
@@ -83,22 +95,28 @@ bool				checker_args(char **argv);
 //erroc.c
 void				print_err_free_def(t_default *def, char *msg);
 void				free_fork_index(t_default *def, size_t index);
+void				free_def(t_default *def);
 
 //log.c
-void				print_log_fork(int i, int philo, unsigned long long time, \
-						t_default def);
+void				print_log(int philo_id, unsigned long long timestamp, \
+						t_philo_action ac);
 
 //monitor.c
-void				*monitor(t_default *def);
+void				*monitor(void *arg);
 bool				start_monitoring(t_default *def);
 bool				end_monitoring(t_default *def);
 
 //mutex.c
 bool				mtx_action(t_mtx *mutex, t_mtx_action action, \
 						t_default *def);
+int					mtx_perform_action(t_mtx *mutex, t_mtx_action action);
+
+//process.c
+void				*philo_process(void *arg);
 
 //time.c
 unsigned long long	get_time(void);
+bool				precise_wait(unsigned int waiting_time);
 
 //util.c
 long				ft_atoi(const char *nptr);

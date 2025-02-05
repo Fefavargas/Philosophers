@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/05 13:46:40 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/05 19:20:28 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 static bool	init_philo(t_default *def, int index)
 {
 	def->philos[index].n_eats = 0;
+	def->philos[index].t_started = def->t_started;
 	def->philos[index].last_meal = def->t_started;
+	def->philos[index].t_die = def->t_die;
+	def->philos[index].t_eat = def->t_eat;
+	def->philos[index].t_sleep = def->t_sleep;
+	def->philos[index].id = index;
+	def->philos[index].l_fork = &def->forks[index];
+	def->philos[index].r_fork = &def->forks[(index + 1) % def->n_philo];
 	return (1);
 }
 
@@ -38,11 +45,37 @@ bool	create_philo(t_default *def)
 	return (1);
 }
 
+// bool	create_fork(t_default *def)
+// {
+// 	size_t	i;
+// 	t_mtx	forks;
+
+// 	def->forks = malloc(sizeof(t_fork) * def->n_philo);
+// 	if (!def->forks)
+// 	{
+// 		print_err_free_def(def, ERR_MALLOC);
+// 		return (0);
+// 	}
+// 	i = 0;
+// 	while (i < def->n_philo)
+// 	{
+// 		if (!mtx_action(&def->forks[i].fork, INIT, def))
+// 		{
+// 			free_fork_index(def, i);
+// 			return (0);
+// 		}
+// 		def->forks[i].id = i;
+// 		i++;
+// 	}
+// 	return (1);
+//}
+
 bool	create_fork(t_default *def)
 {
 	size_t	i;
+	t_mtx	*forks;
 
-	def->forks = malloc(sizeof(t_fork) * def->n_philo);
+	forks = malloc(sizeof(t_mtx) * def->n_philo);
 	if (!def->forks)
 	{
 		print_err_free_def(def, ERR_MALLOC);
@@ -51,12 +84,11 @@ bool	create_fork(t_default *def)
 	i = 0;
 	while (i < def->n_philo)
 	{
-		if (!mtx_action(&def->forks[i].fork, INIT, def))
+		if (!mtx_action(&def->forks[i], INIT, def))
 		{
 			free_fork_index(def, i);
 			return (0);
 		}
-		def->forks[i].id = i;
 		i++;
 	}
 	return (1);

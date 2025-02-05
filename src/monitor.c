@@ -6,29 +6,11 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/05 13:45:54 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/05 17:22:56 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-bool	start_monitoring(t_default *def)
-{
-	if (!def->n_eats)
-		return (1);
-	if (pthread_create(&def->monitor, NULL, &monitor, def))
-		return (ft_putstr_fd_return(ERR_TH_MONI, STDERR_FILENO, 0));
-	return (1);
-}
-
-bool	end_monitoring(t_default *def)
-{
-	if (!def->n_eats)
-		return (1);
-	if (ptread_join(&def->monitor, NULL))
-		return (ft_putstr_fd_return(ERR_TH_JOIN, STDERR_FILENO, 0));
-	return (1);
-}
 
 /** 
  * Return -1 Mutex error
@@ -53,11 +35,13 @@ int	check_starving(t_default *def, t_philo *philo)
  	Checks if all philosofers already eat the selected number of times 
  	and check if any philosofer are dead
 */
-void	*monitor(t_default *def)
+void	*monitor(void *arg)
 {
-	int	i;
-	int	count_full;
+	int			i;
+	int			count_full;
+	t_default	*def;
 
+	def = (t_default *)arg;
 	while (1)
 	{
 		i = 0;
@@ -65,18 +49,34 @@ void	*monitor(t_default *def)
 		while (i < def->n_philo)
 		{
 			if (def->n_eats >= def->philos[i].n_eats)
-			{
 				count_full++;
-			}
 			if (check_starving(def, &def->philos[i]))
 			{
-				return (NULL);
+				return (0);
 			}
 		}
 		if (count_full == def->n_philo)
 		{
-			return (NULL);
+			return (0);
 		}
 	}
-	return (NULL);
+	return (0);
+}
+
+bool	start_monitoring(t_default *def)
+{
+	if (!def->n_eats)
+		return (1);
+	if (pthread_create(&def->monitor, NULL, &monitor, def))
+		return (ft_putstr_fd_return(ERR_TH_MONI, STDERR_FILENO, 0));
+	return (1);
+}
+
+bool	end_monitoring(t_default *def)
+{
+	if (!def->n_eats)
+		return (1);
+	if (pthread_join(&def->monitor, NULL))
+		return (ft_putstr_fd_return(ERR_TH_JOIN, STDERR_FILENO, 0));
+	return (1);
 }
