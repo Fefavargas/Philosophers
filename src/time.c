@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:14:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/05 12:38:59 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/09 19:21:49 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,16 @@ bool	precise_wait(unsigned int waiting_time)
 			return (1);
 	}
 	return (0);
+}
+
+void	set_start_time(t_default *def)
+{
+	unsigned long long	time;
+	size_t				i;
+
+	i = 0;
+	time = get_time();
+	def->t_started = time;
+	while (i < def->n_philo)
+		def->philos[i++].last_meal = time;
 }

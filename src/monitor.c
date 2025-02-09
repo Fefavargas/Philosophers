@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/05 17:22:56 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/09 18:03:58 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	check_starving(t_default *def, t_philo *philo)
 */
 void	*monitor(void *arg)
 {
-	int			i;
-	int			count_full;
+	size_t		i;
+	size_t		count_full;
 	t_default	*def;
 
 	def = (t_default *)arg;
@@ -54,6 +54,7 @@ void	*monitor(void *arg)
 			{
 				return (0);
 			}
+			i++;
 		}
 		if (count_full == def->n_philo)
 		{
@@ -76,7 +77,7 @@ bool	end_monitoring(t_default *def)
 {
 	if (!def->n_eats)
 		return (1);
-	if (pthread_join(&def->monitor, NULL))
+	if (pthread_join(def->monitor, NULL))
 		return (ft_putstr_fd_return(ERR_TH_JOIN, STDERR_FILENO, 0));
 	return (1);
 }

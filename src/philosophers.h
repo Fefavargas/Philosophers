@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/05 19:31:14 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/09 19:18:12 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_philo
 {
 	pthread_t			thread_id;
 	int					id;
-	unsigned long long	t_started;
+	unsigned long long	*t_started;
 	unsigned int		t_die;
 	unsigned int		t_eat;
 	unsigned int		t_sleep;
@@ -75,7 +75,7 @@ typedef struct s_philo
 
 typedef struct s_default
 {
-	unsigned int		n_philo;
+	size_t				n_philo;
 	unsigned int		t_die;
 	unsigned int		t_eat;
 	unsigned int		t_sleep;
@@ -87,7 +87,7 @@ typedef struct s_default
 }	t_default;
 
 //create.c
-bool				create_default(int argc, char **argv, t_default *def);
+bool				create_default(int argc, char **argv, t_default **def);
 
 //checker.c
 bool				checker_args(char **argv);
@@ -117,6 +117,7 @@ void				*philo_process(void *arg);
 //time.c
 unsigned long long	get_time(void);
 bool				precise_wait(unsigned int waiting_time);
+void				set_start_time(t_default *def);
 
 //util.c
 long				ft_atoi(const char *nptr);
