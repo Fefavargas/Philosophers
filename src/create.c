@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/09 22:52:27 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/10 20:33:44 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 static bool	init_philo(t_default *def, int index)
 {
 	def->philos[index].n_eats = 0;
-	(def->philos[index]).t_started = &def->t_started;
+	def->philos[index].t_started = &def->t_started;
 	def->philos[index].t_die = def->t_die;
 	def->philos[index].t_eat = def->t_eat;
 	def->philos[index].t_sleep = def->t_sleep;
 	def->philos[index].id = index;
-	(def->philos[index]).l_fork = &(def->forks[index]);
-	printf("philo at index: %i, gets fork at index. \n", index);
+	def->philos[index].mtx_print_lock = &(def->mtx_print_lock);
+	def->philos[index].l_fork = &(def->forks[index]);
 	def->philos[index].r_fork = &(def->forks[(index + 1) % def->n_philo]);
-	printf("philo at index: %i, gets fork index %lu \n", index, ((index + 1) % def->n_philo));
-	if (!mtx_action(&(def->philos[index].meal_lock), INIT, def))
+	if (!mtx_action(&(def->philos[index].mtx_meal_lock), INIT, def))
 	{
 		//WHAT TO DO IF ERROR?
 		return (0);
@@ -76,6 +75,7 @@ bool	create_default(int argc, char **argv, t_default **def)
 	*def = (t_default *)malloc(sizeof(t_default));
 	if (!def)
 		return ((bool)ft_putstr_fd_return(ERR_MALLOC, STDERR_FILENO, 0));
+	(*def)->stop = 0;
 	(*def)->n_philo = ft_atoi(argv[1]);
 	(*def)->t_die = ft_atoi(argv[2]);
 	(*def)->t_eat = ft_atoi(argv[3]);
@@ -86,7 +86,7 @@ bool	create_default(int argc, char **argv, t_default **def)
 	(*def)->n_eats = -1;
 	if (argc == 6)
 		(*def)->n_eats = ft_atoi(argv[5]);
-	if (!mtx_action(&(*def)->print_lock, INIT, *def))
+	if (!mtx_action(&(*def)->mtx_print_lock, INIT, *def))
 		return (0);
 	if (!create_fork(*def))
 		return (0);

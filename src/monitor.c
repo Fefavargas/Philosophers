@@ -6,11 +6,37 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/09 20:22:04 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/10 20:35:55 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	ft_is_dead(t_default *def, t_philo *philo)
+{
+	print_log(philo, get_time(), DIE);
+	def->n_eats = -1;
+}
+
+/** 
+ * Return -1 Mutex error
+ * 		   0 Philosophers is not full
+ * 		   1 Philosophers is full
+*/
+int	check_full(t_default *def, t_philo *philo)
+{
+	int	full;
+
+	full = 0;
+	if (!mtx_action(&philo->mtx_meal_lock, LOCK, def))
+		return (-1);
+	if (def->n_eats == philo->n_eats)
+		full = 1;
+	if (!mtx_action(&philo->mtx_meal_lock, UNLOCK, def))
+		return (-1);
+	return (full);
+}
+
 
 /** 
  * Return -1 Mutex error
@@ -20,15 +46,17 @@
 int	check_starving(t_default *def, t_philo *philo)
 {
 	unsigned long long	current_time;
+	int					result;
 
+	result = 0;
 	current_time = get_time();
-	if (!mtx_action(&philo->meal_lock, LOCK, def))
+	if (!mtx_action(&philo->mtx_meal_lock, LOCK, def))
 		return (-1);
 	if (philo->last_meal + def->t_die < current_time)
-		return (1);
-	if (!mtx_action(&philo->meal_lock, UNLOCK, def))
+		result = 1;
+	if (!mtx_action(&philo->mtx_meal_lock, UNLOCK, def))
 		return (-1);
-	return (0);
+	return (result);
 }
 
 /** 
@@ -40,6 +68,7 @@ void	*monitor(void *arg)
 	size_t		i;
 	size_t		count_full;
 	t_default	*def;
+	int			full;
 
 	def = (t_default *)arg;
 	while (1)
@@ -48,20 +77,24 @@ void	*monitor(void *arg)
 		count_full = 0;
 		while (i < def->n_philo)
 		{
-			if (def->n_eats >= def->philos[i].n_eats)
-				count_full++;
+			full = check_full(def, &def->philos[i]);
+			if (full == -1) 
+				return (NULL); //ERROR:
+			count_full += full;
 			if (check_starving(def, &def->philos[i]))
 			{
-				return (0);
+				ft_is_dead(def, &def->philos[i]);
+				return (NULL);
 			}
 			i++;
 		}
 		if (count_full == def->n_philo)
 		{
-			return (0);
+			def->stop = 1;
+			return (NULL);
 		}
 	}
-	return (0);
+	return (NULL);
 }
 
 bool	start_monitoring(t_default *def)
