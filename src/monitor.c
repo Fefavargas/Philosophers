@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/09 18:03:58 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/09 20:22:04 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	check_starving(t_default *def, t_philo *philo)
 	unsigned long long	current_time;
 
 	current_time = get_time();
-	if (!mtx_action(philo->meal_lock, LOCK, def))
+	if (!mtx_action(&philo->meal_lock, LOCK, def))
 		return (-1);
 	if (philo->last_meal + def->t_die < current_time)
 		return (1);
-	if (!mtx_action(philo->meal_lock, UNLOCK, def))
+	if (!mtx_action(&philo->meal_lock, UNLOCK, def))
 		return (-1);
 	return (0);
 }

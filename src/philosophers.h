@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/09 19:18:12 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/09 22:46:38 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ typedef struct s_philo
 	unsigned int		t_eat;
 	unsigned int		t_sleep;
 	int					n_eats;
-	t_mtx				*meal_lock;
+	t_mtx				meal_lock;
 	unsigned long long	last_meal;
 	t_mtx				*r_fork;
 	t_mtx				*l_fork;
+	t_mtx				*print_log;
 }	t_philo;
 
 typedef struct s_default
@@ -82,6 +83,7 @@ typedef struct s_default
 	int					n_eats;
 	t_philo				*philos;
 	t_mtx				*forks;
+	t_mtx				print_lock;
 	unsigned long long	t_started;
 	pthread_t			monitor;
 }	t_default;

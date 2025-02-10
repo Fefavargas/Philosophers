@@ -6,18 +6,22 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/09 19:06:21 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/09 22:25:55 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac)
+bool	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac, char *str)
 {
 	if (!mtx_perform_action(fork, ac))
 		return (0);
+	printf("Philo index: %i does %i with %s fork \n", philo->id + 1, ac, str);
 	if (ac == LOCK)
+	{
 		print_log(philo->id, get_time() - *philo->t_started, FORK);
+		// printf("%s \n", str);
+	}
 	return (1);
 }
 
@@ -33,16 +37,18 @@ bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 {
 	if (philo->id % 2)
 	{
-		if (action_forks(philo->l_fork, philo, ac))
+		if (!action_forks(philo->l_fork, philo, ac, "LEFT"))
+		{
 			return (0);
-		if (action_forks(philo->r_fork, philo, ac))
+		}
+		if (!action_forks(philo->r_fork, philo, ac, "Right"))
 			return (0);
 	}
 	else
 	{
-		if (action_forks(philo->r_fork, philo, ac))
+		if (!action_forks(philo->r_fork, philo, ac, "Right"))
 			return (0);
-		if (action_forks(philo->l_fork, philo, ac))
+		if (!action_forks(philo->l_fork, philo, ac, "LEFT"))
 			return (0);
 	}
 	return (1);
@@ -51,13 +57,13 @@ bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 void	eat(t_philo *philo)
 {
 	philo->n_eats++;
-	if (!mtx_perform_action(philo->meal_lock, LOCK))
+	if (!mtx_perform_action(&philo->meal_lock, LOCK))
 	{
 		pick_drop_forks(philo, UNLOCK);
 		return ;
 	}
 	philo->last_meal = get_time();
-	mtx_perform_action(philo->meal_lock, UNLOCK);
+	if(!mtx_perform_action(&philo->meal_lock, UNLOCK))
 	{
 		pick_drop_forks(philo, UNLOCK);
 		return ;
@@ -77,7 +83,6 @@ void	*philo_process(void *arg)
 	{
 		pick_drop_forks(philo, LOCK);
 		eat(philo);
-
 	}
 	return (0);
 }
