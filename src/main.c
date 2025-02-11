@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/10 20:12:52 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:16:41 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ bool	solution(t_default *def)
 	set_start_time(def);
 	if (!start_monitoring(def))
 		return (0);
-	philo_thread(def);
-	//if (!end_monitoring(def))
-	//	return (0);
+	if (!philo_thread(def))
+		return (0);
+	if (!end_monitoring(def))
+		return (0);
 	return (1);
 }
 
@@ -58,12 +59,21 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	if (!checker_args(argv))
-		return (1);
-	if (!create_default(argc, argv, &def))
 	{
-		printf("Program closed.\n");
+		printf("Unable to initialize the parameters.\n");
 		return (1);
 	}
-	solution(def);
+	if (!create_default(argc, argv, &def))
+	{
+		free_def(def);
+		printf("Unable to initialize the parameters.\n");
+		return (1);
+	}
+	if (!solution(def))
+	{
+		free_def(def);
+		printf("Unable to finish the solution.\n");
+		return (1);
+	}
 	return (0);
 }

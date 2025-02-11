@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/10 20:22:52 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:01:31 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_default
 	t_mtx				*forks;
 	t_mtx				mtx_print_lock;
 	t_mtx				mtx_stop;
-	bool				stop;				
+	bool				stop;		
 	unsigned long long	t_started;
 	pthread_t			monitor;
 }	t_default;

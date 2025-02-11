@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/10 20:33:44 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:00:25 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ bool	create_default(int argc, char **argv, t_default **def)
 	if (argc == 6)
 		(*def)->n_eats = ft_atoi(argv[5]);
 	if (!mtx_action(&(*def)->mtx_print_lock, INIT, *def))
+		return (0);
+	if (!mtx_action(&(*def)->mtx_stop, INIT, *def))
 		return (0);
 	if (!create_fork(*def))
 		return (0);

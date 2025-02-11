@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/10 20:35:55 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/11 18:02:31 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	ft_is_dead(t_default *def, t_philo *philo)
 {
-	print_log(philo, get_time(), DIE);
-	def->n_eats = -1;
+	print_log(philo, get_time() - def->t_started, DIE);
+	mtx_action(&def->mtx_stop, LOCK, def);
+	def->stop = 1;
+	mtx_action(&def->mtx_stop, UNLOCK, def);
+	return ;
 }
 
 /** 
@@ -43,16 +46,14 @@ int	check_full(t_default *def, t_philo *philo)
  * 		   0 Philosophers is not dead/starving
  * 		   1 Philosophers is dead/starving
 */
-int	check_starving(t_default *def, t_philo *philo)
+int	check_starving(t_default *def, t_philo *philo, unsigned long long current_time)
 {
-	unsigned long long	current_time;
 	int					result;
 
 	result = 0;
-	current_time = get_time();
 	if (!mtx_action(&philo->mtx_meal_lock, LOCK, def))
 		return (-1);
-	if (philo->last_meal + def->t_die < current_time)
+	if (def->t_started + philo->last_meal + def->t_die < current_time)
 		result = 1;
 	if (!mtx_action(&philo->mtx_meal_lock, UNLOCK, def))
 		return (-1);
@@ -65,10 +66,11 @@ int	check_starving(t_default *def, t_philo *philo)
 */
 void	*monitor(void *arg)
 {
-	size_t		i;
-	size_t		count_full;
-	t_default	*def;
-	int			full;
+	int					full;
+	size_t				i;
+	size_t				count_full;
+	t_default			*def;
+	unsigned long long	current_time;
 
 	def = (t_default *)arg;
 	while (1)
@@ -81,7 +83,8 @@ void	*monitor(void *arg)
 			if (full == -1) 
 				return (NULL); //ERROR:
 			count_full += full;
-			if (check_starving(def, &def->philos[i]))
+			current_time = get_time();
+			if (check_starving(def, &def->philos[i], current_time) == 1)
 			{
 				ft_is_dead(def, &def->philos[i]);
 				return (NULL);
@@ -103,6 +106,7 @@ bool	start_monitoring(t_default *def)
 		return (1);
 	if (pthread_create(&def->monitor, NULL, &monitor, def))
 		return (ft_putstr_fd_return(ERR_TH_MONI, STDERR_FILENO, 0));
+	//(void)usleep(100); //WHY?
 	return (1);
 }
 
