@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/11 18:16:41 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:01:51 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	philo_thread(t_default *def)
 	i = 0;
 	while (i < def->n_philo)
 	{
-		if (pthread_create(&def->philos[i].thread_id, NULL, philo_process, &def->philos[i]))
+		if (pthread_create(&def->philos[i].thread_id, NULL, \
+			philo_process, &def->philos[i]))
 		{
 			//ERROR:
 			printf("ERROR");

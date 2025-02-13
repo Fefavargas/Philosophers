@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/11 18:02:31 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:03:41 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	*monitor(void *arg)
 	size_t				i;
 	size_t				count_full;
 	t_default			*def;
-	unsigned long long	current_time;
 
 	def = (t_default *)arg;
 	while (1)
@@ -83,8 +82,7 @@ void	*monitor(void *arg)
 			if (full == -1) 
 				return (NULL); //ERROR:
 			count_full += full;
-			current_time = get_time();
-			if (check_starving(def, &def->philos[i], current_time) == 1)
+			if (check_starving(def, &def->philos[i], get_time()) == 1)
 			{
 				ft_is_dead(def, &def->philos[i]);
 				return (NULL);
