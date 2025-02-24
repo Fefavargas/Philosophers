@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/11 18:00:25 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:03:19 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static bool	init_philo(t_default *def, int index)
 	def->philos[index].t_sleep = def->t_sleep;
 	def->philos[index].id = index;
 	def->philos[index].mtx_print_lock = &(def->mtx_print_lock);
+	def->philos[index].mtx_stop = &(def->mtx_stop);
+	def->philos[index].stop = &(def->stop);
 	def->philos[index].l_fork = &(def->forks[index]);
 	def->philos[index].r_fork = &(def->forks[(index + 1) % def->n_philo]);
 	if (!mtx_action(&(def->philos[index].mtx_meal_lock), INIT, def))

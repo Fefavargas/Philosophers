@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   log.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:51:59 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/10 20:21:58 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/24 12:42:22 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 bool	print_log(t_philo *philo, unsigned long long timestamp, \
 					t_philo_action ac)
 {
+	if (get_mutex_stop_philo(philo))
+		return (1);
 	if (!mtx_perform_action(philo->mtx_print_lock, LOCK))
 		return (0);
 	if (ac == FORK)

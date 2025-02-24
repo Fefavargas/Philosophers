@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/13 15:03:41 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:46:00 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	ft_is_dead(t_default *def, t_philo *philo)
-{
-	print_log(philo, get_time() - def->t_started, DIE);
-	mtx_action(&def->mtx_stop, LOCK, def);
-	def->stop = 1;
-	mtx_action(&def->mtx_stop, UNLOCK, def);
-	return ;
-}
 
 /** 
  * Return -1 Mutex error
@@ -91,7 +82,7 @@ void	*monitor(void *arg)
 		}
 		if (count_full == def->n_philo)
 		{
-			def->stop = 1;
+			mutex_stop(def);
 			return (NULL);
 		}
 	}

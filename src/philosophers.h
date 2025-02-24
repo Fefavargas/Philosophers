@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/11 18:01:31 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/24 15:19:42 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,23 @@ typedef enum e_philo_action
 	DIE
 }	t_philo_action;
 
-// typedef struct s_fork
-// {
-// 	int		id;
-// 	t_mtx	fork;
-// }	t_fork;
 
+/**
+	pthread_t			thread_id; -> each philo will 
+	int					id;
+	unsigned long long	*t_started;
+	unsigned int		t_die;
+	unsigned int		t_eat;
+	unsigned int		t_sleep;
+	int					n_eats;
+	t_mtx				mtx_meal_lock;
+	unsigned long long	last_meal;
+	t_mtx				*r_fork;
+	t_mtx				*l_fork;
+	t_mtx				*mtx_print_lock;
+	t_mtx				*mtx_stop;
+	bool				*stop;
+ */
 typedef struct s_philo
 {
 	pthread_t			thread_id;
@@ -72,6 +83,7 @@ typedef struct s_philo
 	t_mtx				*r_fork;
 	t_mtx				*l_fork;
 	t_mtx				*mtx_print_lock;
+	t_mtx				*mtx_stop;
 	bool				*stop;
 }	t_philo;
 
@@ -90,6 +102,13 @@ typedef struct s_default
 	unsigned long long	t_started;
 	pthread_t			monitor;
 }	t_default;
+
+//action,c 
+void				sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
+						unsigned long long timestamp);
+bool				pick_drop_forks(t_philo *philo, t_mtx_action ac);
+void				eat(t_philo *philo);
+void				ft_is_dead(t_default *def, t_philo *philo);
 
 //create.c
 bool				create_default(int argc, char **argv, t_default **def);
@@ -115,9 +134,13 @@ bool				end_monitoring(t_default *def);
 bool				mtx_action(t_mtx *mutex, t_mtx_action action, \
 						t_default *def);
 int					mtx_perform_action(t_mtx *mutex, t_mtx_action action);
+void				mutex_stop(t_default *def);
+bool				get_mutex_stop_def(t_default *def);
+bool				get_mutex_stop_philo(t_philo *philo);
 
 //process.c
-void				*philo_process(void *arg);
+bool				solution(t_default *def);
+//void				*philo_process(void *arg);
 
 //time.c
 unsigned long long	get_time(void);
