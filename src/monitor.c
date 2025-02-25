@@ -6,23 +6,18 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/13 16:31:19 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:58:33 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_stop(t_default *def)
-{
-	mtx_action(&def->mtx_stop, LOCK, def);
-	def->stop = 1;
-	mtx_action(&def->mtx_stop, UNLOCK, def);
-}
-
 void	ft_is_dead(t_default *def, t_philo *philo)
 {
 	print_log(philo, get_time() - def->t_started, DIE);
-	ft_stop(def);
+	mtx_action(&def->mtx_stop, LOCK, def);
+	def->stop = 1;
+	mtx_action(&def->mtx_stop, UNLOCK, def);
 	return ;
 }
 
@@ -97,9 +92,8 @@ void	*monitor(void *arg)
 		}
 		if (count_full == def->n_philo)
 		{
-			ft_stop(def);
-			//printf("HERE");
-			return (0);
+			mutex_stop(def);
+			return (NULL);
 		}
 		usleep(100);
 	}

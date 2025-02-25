@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:24:44 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/09 20:46:01 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:04:15 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,31 @@ bool	mtx_action(t_mtx *mutex, t_mtx_action action, t_default *def)
 		return (0);
 	}
 	return (1);
+}
+
+void	mutex_stop(t_default *def)
+{
+	mtx_action(&def->mtx_stop, LOCK, def);
+	def->stop = 1;
+	mtx_action(&def->mtx_stop, UNLOCK, def);
+}
+
+bool	get_mutex_stop_philo(t_philo *philo)
+{
+	bool	value;
+
+	mtx_perform_action(philo->mtx_stop, LOCK);
+	value = *(philo->stop);
+	mtx_perform_action(philo->mtx_stop, UNLOCK);
+	return (value);
+}
+
+bool	get_mutex_stop_def(t_default *def)
+{
+	bool	value;
+
+	mtx_action(&def->mtx_stop, LOCK, def);
+	value = def->stop;
+	mtx_action(&def->mtx_stop, UNLOCK, def);
+	return (value);
 }

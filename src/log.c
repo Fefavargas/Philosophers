@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:51:59 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/13 15:50:08 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:56:38 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	print_log(t_philo *philo, unsigned long long timestamp, \
 					t_philo_action ac)
 {
-	if (*philo->stop)
+	if (get_mutex_stop_philo(philo))
 		return (1);
 	if (!mtx_perform_action(philo->mtx_print_lock, LOCK))
 		return (0);

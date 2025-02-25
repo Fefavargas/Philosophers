@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/13 16:21:25 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:57:33 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ bool	solution(t_default *def)
 	if (!start_monitoring(def))
 		return (0);
 	if (!philo_thread(def))
-		return (0);
-	if (!end_philo_thread(def))
 		return (0);
 	if (!end_monitoring(def))
 		return (0);
