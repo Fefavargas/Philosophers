@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/25 15:02:36 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 17:47:42 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	*philo_process(void *arg)
 		pick_drop_forks(philo, LOCK);
 		eat(philo);
 		sleep_think(philo, SLEEP, philo->t_sleep, get_time() - *philo->t_started);
-
 		sleep_think(philo, THINK, philo->t_die - philo->t_eat - philo->t_sleep, get_time() - *philo->t_started);
 		//sleep_think(philo, THINK, philo->t_die - philo->t_eat - philo->t_sleep, philo->last_meal + philo->t_eat + philo->t_sleep);
-
 
 		//timestamp = (philo->t_die - (get_time() - (*philo->t_started + philo->last_meal)) - philo->t_eat) / 2;
 		//printf("tempo de pensar e': %llu\n", timestamp);

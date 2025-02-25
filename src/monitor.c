@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/25 15:05:59 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 18:21:30 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int	check_full(t_default *def, t_philo *philo)
  * 		   0 Philosophers is not dead/starving
  * 		   1 Philosophers is dead/starving
 */
-int	check_starving(t_default *def, t_philo *philo, unsigned long long current_time)
+int	check_starving(t_default *def, t_philo *philo)
 {
 	int					result;
 
 	result = 0;
 	if (!mtx_action(&philo->mtx_meal_lock, LOCK, def))
 		return (-1);
-	if (def->t_started + philo->last_meal + def->t_die < current_time)
+	if (def->t_started + philo->last_meal + def->t_die < get_time())
 		result = 1;
 	if (!mtx_action(&philo->mtx_meal_lock, UNLOCK, def))
 		return (-1);
@@ -69,22 +69,21 @@ void	*monitor(void *arg)
 		count_full = 0;
 		while (i < def->n_philo)
 		{
+			if (check_starving(def, &def->philos[i]))
+			{
+				ft_is_dead(def, &def->philos[i]);
+				return (0);
+			}
 			full = check_full(def, &def->philos[i]);
 			if (full == -1) 
 				return (0); //ERROR:
 			count_full += full;
-			if (check_starving(def, &def->philos[i], get_time()) == 1)
-			{
-				ft_is_dead(def, &def->philos[i]);
-				//printf("HERE2");
-				return (0);
-			}
 			i++;
 		}
 		if (count_full == def->n_philo)
 		{
 			mutex_stop(def);
-			return (NULL);
+			return (0);
 		}
 		usleep(100);
 	}

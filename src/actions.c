@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/25 13:54:57 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 17:18:05 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	eat(t_philo *philo)
 	print_log(philo, philo->last_meal, EAT);
 	precise_wait(philo->t_eat);
 	pick_drop_forks(philo, UNLOCK);
-	return ;
 }
 
 void	sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
@@ -89,5 +88,4 @@ void	ft_is_dead(t_default *def, t_philo *philo)
 {
 	print_log(philo, get_time() - def->t_started, DIE);
 	mutex_stop(def);
-	return ;
 }
