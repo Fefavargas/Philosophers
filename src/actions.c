@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/24 15:18:55 by fefa             ###   ########.fr       */
+/*   Updated: 2025/02/25 13:54:57 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 
 void	eat(t_philo *philo)
 {
+	philo->n_eats++;
 	if (!mtx_perform_action(&philo->mtx_meal_lock, LOCK))
 	{
 		pick_drop_forks(philo, UNLOCK);
 		return ;
 	}
-	philo->n_eats++;
 	philo->last_meal = get_time() - *philo->t_started;
 	if (!mtx_perform_action(&philo->mtx_meal_lock, UNLOCK))
 	{

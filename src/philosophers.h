@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/24 15:19:42 by fefa             ###   ########.fr       */
+/*   Updated: 2025/02/25 13:23:59 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ bool				get_mutex_stop_philo(t_philo *philo);
 
 //process.c
 bool				solution(t_default *def);
-//void				*philo_process(void *arg);
+void				*philo_process(void *arg);
 
 //time.c
 unsigned long long	get_time(void);

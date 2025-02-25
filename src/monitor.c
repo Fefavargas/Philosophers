@@ -6,20 +6,11 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/25 12:58:33 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 15:05:59 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	ft_is_dead(t_default *def, t_philo *philo)
-{
-	print_log(philo, get_time() - def->t_started, DIE);
-	mtx_action(&def->mtx_stop, LOCK, def);
-	def->stop = 1;
-	mtx_action(&def->mtx_stop, UNLOCK, def);
-	return ;
-}
 
 /** 
  * Return -1 Mutex error
