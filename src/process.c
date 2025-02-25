@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/13 15:52:27 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/25 12:38:31 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,8 @@ void	*philo_process(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (1)
+	while (!(*philo->stop))
 	{
-		if (*philo->stop)
-			return (0);
 		pick_drop_forks(philo, LOCK);
 		eat(philo);
 		sleep_think(philo, SLEEP);
