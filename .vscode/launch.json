@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/home/fvargas/GitHub/Philosophers/philosophers",
-            "args": ["3", "410", "200", "100"],
+            "args": ["2", "250", "200", "100"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

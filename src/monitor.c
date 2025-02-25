@@ -6,18 +6,23 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/13 15:03:41 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/13 16:31:19 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_is_dead(t_default *def, t_philo *philo)
+void	ft_stop(t_default *def)
 {
-	print_log(philo, get_time() - def->t_started, DIE);
 	mtx_action(&def->mtx_stop, LOCK, def);
 	def->stop = 1;
 	mtx_action(&def->mtx_stop, UNLOCK, def);
+}
+
+void	ft_is_dead(t_default *def, t_philo *philo)
+{
+	print_log(philo, get_time() - def->t_started, DIE);
+	ft_stop(def);
 	return ;
 }
 
@@ -80,22 +85,25 @@ void	*monitor(void *arg)
 		{
 			full = check_full(def, &def->philos[i]);
 			if (full == -1) 
-				return (NULL); //ERROR:
+				return (0); //ERROR:
 			count_full += full;
 			if (check_starving(def, &def->philos[i], get_time()) == 1)
 			{
 				ft_is_dead(def, &def->philos[i]);
-				return (NULL);
+				//printf("HERE2");
+				return (0);
 			}
 			i++;
 		}
 		if (count_full == def->n_philo)
 		{
-			def->stop = 1;
-			return (NULL);
+			ft_stop(def);
+			//printf("HERE");
+			return (0);
 		}
+		usleep(100);
 	}
-	return (NULL);
+	return (0);
 }
 
 bool	start_monitoring(t_default *def)

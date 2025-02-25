@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/13 15:07:48 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:52:27 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 bool	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac)
 {
-	unsigned long long	timestamp;
-
 	if (!mtx_perform_action(fork, ac))
 		return (0);
 	if (ac == LOCK)
-	{
-		timestamp = get_time() - *philo->t_started;
-		print_log(philo, timestamp, FORK);
-	}
+		print_log(philo, get_time() - *philo->t_started, FORK);
 	return (1);
 }
 
@@ -67,7 +62,7 @@ void	eat(t_philo *philo)
 	}
 	philo->last_meal = get_time() - *philo->t_started;
 	philo->n_eats++;
-	if(!mtx_perform_action(&philo->mtx_meal_lock, UNLOCK))
+	if (!mtx_perform_action(&philo->mtx_meal_lock, UNLOCK))
 	{
 		pick_drop_forks(philo, UNLOCK);
 		return ;
@@ -99,6 +94,8 @@ void	*philo_process(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
+		if (*philo->stop)
+			return (0);
 		pick_drop_forks(philo, LOCK);
 		eat(philo);
 		sleep_think(philo, SLEEP);
