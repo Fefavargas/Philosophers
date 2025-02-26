@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 20:44:21 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:56:43 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*philo_process(void *arg)
 	//unsigned long long	timestamp;
 
 	philo = (t_philo *)arg;
-	while (!get_mutex_stop_philo(philo))
+	while (!get_mutex_stop_def(philo->def))
 	{
 		pick_drop_forks(philo, LOCK);
 		eat(philo);
@@ -27,7 +27,6 @@ void	*philo_process(void *arg)
 		time = philo->def->t_die - philo->def->t_eat - philo->def->t_sleep;
 		if (time < 0)
 			time = 0;
-			
 		sleep_think(philo, THINK, time , get_time() - philo->def->t_started);
 		
 		//sleep_think(philo, THINK, philo->t_die - philo->t_eat - philo->t_sleep, philo->last_meal + philo->t_eat + philo->t_sleep);
@@ -39,25 +38,29 @@ void	*philo_process(void *arg)
 	return (0);
 }
 
-bool	philo_thread(t_default *def)
+bool start_threads(t_default *def)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < def->n_philo)
 	{
-		if (pthread_create(&def->philos[i].thread_id, NULL, \
-			philo_process, &def->philos[i]))
-		{
-			//ERROR:
-			printf("ERROR");
-			return (0);
-		}
+		pthread_create(&def->philos[i].thread_id, NULL, \
+			philo_process, &def->philos[i]);
 		i++;
 	}
+	pthread_create(&def->monitor, NULL, &monitor, def);
+	return (1);
+}
+
+bool end_threads(t_default *def)
+{
+	size_t	i;
+
 	i = 0;
 	while (i < def->n_philo)
 		pthread_join(def->philos[i++].thread_id, NULL);
+	pthread_join(def->monitor, NULL);
 	return (1);
 }
 
@@ -74,14 +77,27 @@ bool	solution(t_default *def)
 		ft_is_dead(def, &def->philos[0]);
 		return (1);
 	}
-	if (!start_monitoring(def))
-		return (0);
-	if (!philo_thread(def))
-		return (0);
-	if (!end_monitoring(def))
-		return (0);
+	start_threads(def);
+	end_threads(def);
 	return (1);
 }
+
+// bool	philo_thread(t_default *def)
+// {
+// 	size_t	i;
+
+// 	i = 0;
+// 	while (i < def->n_philo)
+// 	{
+// 		pthread_create(&def->philos[i].thread_id, NULL, \
+// 			philo_process, &def->philos[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < def->n_philo)
+// 		pthread_join(def->philos[i++].thread_id, NULL);
+// 	return (1);
+// }
 
 // void	checkstop(t_default *def)
 // {

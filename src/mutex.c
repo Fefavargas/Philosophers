@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:24:44 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 20:34:37 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:56:52 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,3 @@ bool	get_mutex_stop_def(t_default *def)
 	mtx_action(&def->mtx_stop, UNLOCK, def);
 	return (value);
 }
-
-
-bool	get_mutex_stop_philo(t_philo *philo)
-{
-	bool	value;
-
-	// printf("NUTEX\n");
-	// mtx_perform_action(philo->mtx_stop, LOCK);
-	// value = *(philo->stop);
-	// mtx_perform_action(philo->mtx_stop, UNLOCK);
-	value = get_mutex_stop_def(philo->def);
-	return (value);
-}
-
