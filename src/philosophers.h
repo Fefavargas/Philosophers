@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 13:07:01 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:17:35 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ERR_TH_JOIN	"ERROR: THREAD Monitor join\n"
 
 typedef pthread_mutex_t		t_mtx; // Abbreviation for 'pthread_mutex_t'
+typedef struct s_default	t_default;
 
 typedef enum e_mtx_action
 {
@@ -85,6 +86,7 @@ typedef struct s_philo
 	t_mtx				*mtx_print_lock;
 	t_mtx				*mtx_stop;
 	bool				*stop;
+	t_default	*def;
 }	t_philo;
 
 /** 
@@ -144,6 +146,8 @@ bool				print_log(t_philo *philo, unsigned long long timestamp, \
 void				*monitor(void *arg);
 bool				start_monitoring(t_default *def);
 bool				end_monitoring(t_default *def);
+int					check_starving(t_default *def, t_philo *philo);
+int					check_full(t_default *def, t_philo *philo);
 
 //mutex.c
 bool				mtx_action(t_mtx *mutex, t_mtx_action action, \

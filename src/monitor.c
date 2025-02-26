@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/25 18:21:30 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:13:33 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ void	*monitor(void *arg)
 		{
 			if (check_starving(def, &def->philos[i]))
 			{
-				ft_is_dead(def, &def->philos[i]);
+				//ft_is_dead(def, &def->philos[i]);
+				print_log(&def->philos[i], get_time() - def->t_started, DIE);
+				mutex_stop(def);
 				return (0);
 			}
 			full = check_full(def, &def->philos[i]);
@@ -96,7 +98,6 @@ bool	start_monitoring(t_default *def)
 		return (1);
 	if (pthread_create(&def->monitor, NULL, &monitor, def))
 		return (ft_putstr_fd_return(ERR_TH_MONI, STDERR_FILENO, 0));
-	//(void)usleep(100); //WHY?
 	return (1);
 }
 

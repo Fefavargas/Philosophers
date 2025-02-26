@@ -6,12 +6,12 @@
 #    By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 14:11:54 by fvargas           #+#    #+#              #
-#    Updated: 2025/02/26 12:34:58 by fvargas          ###   ########.fr        #
+#    Updated: 2025/02/26 19:54:11 by fvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 		philosophers
-CC = 		cc -g
+CC = 		cc
 CFLAGS = 	-Wall -Wextra -Werror -g
 HDRS :=		src/philosophers.h
 SRCS =		src/actions.c src/checker.c src/create.c src/error.c src/log.c \
