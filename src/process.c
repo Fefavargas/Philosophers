@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 20:05:20 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:44:21 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	*philo_process(void *arg)
 	{
 		pick_drop_forks(philo, LOCK);
 		eat(philo);
-		sleep_think(philo, SLEEP, *philo->t_sleep, get_time() - *philo->t_started);
-		time = *philo->t_die - *philo->t_eat - *philo->t_sleep;
+		sleep_think(philo, SLEEP, philo->def->t_sleep, get_time() - philo->def->t_started);
+		time = philo->def->t_die - philo->def->t_eat - philo->def->t_sleep;
 		if (time < 0)
 			time = 0;
 			
-		sleep_think(philo, THINK, time , get_time() - *philo->t_started);
+		sleep_think(philo, THINK, time , get_time() - philo->def->t_started);
 		
 		//sleep_think(philo, THINK, philo->t_die - philo->t_eat - philo->t_sleep, philo->last_meal + philo->t_eat + philo->t_sleep);
 

@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:51:59 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/25 12:56:38 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:42:49 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	print_log(t_philo *philo, unsigned long long timestamp, \
 {
 	if (get_mutex_stop_philo(philo))
 		return (1);
-	if (!mtx_perform_action(philo->mtx_print_lock, LOCK))
+	if (!mtx_perform_action(&philo->def->mtx_print_lock, LOCK))
 		return (0);
 	if (ac == FORK)
 		printf("%llu %d has taken a fork\n", timestamp, philo->id + 1);
@@ -29,7 +29,7 @@ bool	print_log(t_philo *philo, unsigned long long timestamp, \
 		printf("%llu %d is thinking\n", timestamp, philo->id + 1);
 	else if (ac == DIE)
 		printf("%llu %d died\n", timestamp, philo->id + 1);
-	if (!mtx_perform_action(philo->mtx_print_lock, UNLOCK))
+	if (!mtx_perform_action(&philo->def->mtx_print_lock, UNLOCK))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 20:17:35 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:40:05 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,17 @@ typedef enum e_philo_action
 	unsigned long long	last_meal; -> last time the philo ate
 	t_mtx				*r_fork; -> pointer to the right fork
 	t_mtx				*l_fork; -> pointer to the left fork
-	t_mtx				*mtx_print_lock; -> pointer to the print lock mutex
-	t_mtx				*mtx_stop; -> pointer to the stop mutex
-	bool				*stop; -> pointer to the stop variable
  */
 typedef struct s_philo
 {
 	pthread_t			thread_id;
 	int					id;
-	unsigned long long	*t_started;
-	unsigned int		*t_die;
-	unsigned int		*t_eat;
-	unsigned int		*t_sleep;
 	int					n_eats;
 	t_mtx				mtx_meal_lock;
 	unsigned long long	last_meal;
 	t_mtx				*r_fork;
 	t_mtx				*l_fork;
-	t_mtx				*mtx_print_lock;
-	t_mtx				*mtx_stop;
-	bool				*stop;
-	t_default	*def;
+	t_default			*def;
 }	t_philo;
 
 /** 

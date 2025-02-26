@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/26 13:02:28 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 20:41:54 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac)
 		return (0);
 	if (ac == LOCK)
 	{
-		timestamp = get_time() - *philo->t_started;
+		timestamp = get_time() - philo->def->t_started;
 		print_log(philo, timestamp, FORK);
 	}
 	return (1);
@@ -66,14 +66,14 @@ void	eat(t_philo *philo)
 		pick_drop_forks(philo, UNLOCK);
 		return ;
 	}
-	philo->last_meal = get_time() - *philo->t_started;
+	philo->last_meal = get_time() - philo->def->t_started;
 	if (!mtx_perform_action(&philo->mtx_meal_lock, UNLOCK))
 	{
 		pick_drop_forks(philo, UNLOCK);
 		return ;
 	}
 	print_log(philo, philo->last_meal, EAT);
-	precise_wait(*philo->t_eat);
+	precise_wait(philo->def->t_eat);
 	pick_drop_forks(philo, UNLOCK);
 }
 
