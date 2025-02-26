@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/25 17:47:42 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:07:23 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*philo_process(void *arg)
 	{
 		pick_drop_forks(philo, LOCK);
 		eat(philo);
-		sleep_think(philo, SLEEP, philo->t_sleep, get_time() - *philo->t_started);
-		sleep_think(philo, THINK, philo->t_die - philo->t_eat - philo->t_sleep, get_time() - *philo->t_started);
+		sleep_think(philo, SLEEP, *philo->t_sleep, get_time() - *philo->t_started);
+		sleep_think(philo, THINK, *philo->t_die - *philo->t_eat - *philo->t_sleep, get_time() - *philo->t_started);
 		//sleep_think(philo, THINK, philo->t_die - philo->t_eat - philo->t_sleep, philo->last_meal + philo->t_eat + philo->t_sleep);
 
 		//timestamp = (philo->t_die - (get_time() - (*philo->t_started + philo->last_meal)) - philo->t_eat) / 2;
@@ -58,6 +58,14 @@ bool	philo_thread(t_default *def)
 bool	solution(t_default *def)
 {
 	set_start_time(def);
+	if (def->n_philo == 1)
+	{
+		if (!action_forks(def->philos[0].r_fork, &def->philos[0], LOCK))
+			return (0);
+		precise_wait(def->t_die);
+		ft_is_dead(def, &def->philos[0]);
+		return (1);
+	}
 	if (!start_monitoring(def))
 		return (0);
 	if (!philo_thread(def))

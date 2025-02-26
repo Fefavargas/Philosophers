@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/25 13:23:59 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:07:01 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,29 +54,29 @@ typedef enum e_philo_action
 
 
 /**
-	pthread_t			thread_id; -> each philo will 
-	int					id;
-	unsigned long long	*t_started;
-	unsigned int		t_die;
-	unsigned int		t_eat;
-	unsigned int		t_sleep;
-	int					n_eats;
-	t_mtx				mtx_meal_lock;
-	unsigned long long	last_meal;
-	t_mtx				*r_fork;
-	t_mtx				*l_fork;
-	t_mtx				*mtx_print_lock;
-	t_mtx				*mtx_stop;
-	bool				*stop;
+	pthread_t			thread_id; -> each philo has a thread_id
+	int					id; -> index starting from 0
+	unsigned long long	*t_started; -> pointer to the start time
+	unsigned int		t_die; -> pointer to the die time
+	unsigned int		t_eat; -> pointer to the eat time
+	unsigned int		t_sleep; -> pointer to the sleep time
+	int					n_eats; -> number of times the philo has eaten
+	t_mtx				mtx_meal_lock; -> mutex for the meal lock
+	unsigned long long	last_meal; -> last time the philo ate
+	t_mtx				*r_fork; -> pointer to the right fork
+	t_mtx				*l_fork; -> pointer to the left fork
+	t_mtx				*mtx_print_lock; -> pointer to the print lock mutex
+	t_mtx				*mtx_stop; -> pointer to the stop mutex
+	bool				*stop; -> pointer to the stop variable
  */
 typedef struct s_philo
 {
 	pthread_t			thread_id;
 	int					id;
 	unsigned long long	*t_started;
-	unsigned int		t_die;
-	unsigned int		t_eat;
-	unsigned int		t_sleep;
+	unsigned int		*t_die;
+	unsigned int		*t_eat;
+	unsigned int		*t_sleep;
 	int					n_eats;
 	t_mtx				mtx_meal_lock;
 	unsigned long long	last_meal;
@@ -87,6 +87,20 @@ typedef struct s_philo
 	bool				*stop;
 }	t_philo;
 
+/** 
+	size_t				n_philo; -> number of philosophers
+	unsigned int		t_die; -> time to die
+	unsigned int		t_eat; -> time to eat
+	unsigned int		t_sleep; -> time to sleep
+	int					n_eats; -> number of times each philosopher must eat
+	t_philo				*philos; -> array of philosophers
+	t_mtx				*forks; -> array of forks
+	t_mtx				mtx_print_lock; -> mutex for print lock
+	t_mtx				mtx_stop; -> mutex for stop
+	bool				stop; -> stop variable
+	unsigned long long	t_started; -> start time
+	pthread_t			monitor; -> monitor thread
+*/
 typedef struct s_default
 {
 	size_t				n_philo;
@@ -109,6 +123,7 @@ void				sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
 bool				pick_drop_forks(t_philo *philo, t_mtx_action ac);
 void				eat(t_philo *philo);
 void				ft_is_dead(t_default *def, t_philo *philo);
+bool				action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac);
 
 //create.c
 bool				create_default(int argc, char **argv, t_default **def);

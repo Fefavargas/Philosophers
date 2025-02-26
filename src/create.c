@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/25 12:56:02 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 12:50:52 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static bool	init_philo(t_default *def, int index)
 {
 	def->philos[index].n_eats = 0;
 	def->philos[index].t_started = &def->t_started;
-	def->philos[index].t_die = def->t_die;
-	def->philos[index].t_eat = def->t_eat;
-	def->philos[index].t_sleep = def->t_sleep;
+	def->philos[index].t_die = &def->t_die;
+	def->philos[index].t_eat = &def->t_eat;
+	def->philos[index].t_sleep = &def->t_sleep;
 	def->philos[index].id = index;
 	def->philos[index].mtx_print_lock = &(def->mtx_print_lock);
 	def->philos[index].mtx_stop = &(def->mtx_stop);

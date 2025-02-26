@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/25 17:18:05 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 13:02:28 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	eat(t_philo *philo)
 		return ;
 	}
 	print_log(philo, philo->last_meal, EAT);
-	precise_wait(philo->t_eat);
+	precise_wait(*philo->t_eat);
 	pick_drop_forks(philo, UNLOCK);
 }
 
