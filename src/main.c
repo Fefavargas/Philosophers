@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/25 17:27:52 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:19:22 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 int	main(int argc, char **argv)
 {
-	t_default	*def;
+	t_default	def;
 
-	def = NULL;
+	//def = NULL;
 	if (argc != 5 && argc != 6)
 	{
 		printf("This program should receive 4 or 5 arguments.\n");
 		return (1);
 	}
 	if (!checker_args(argv))
-	{
+	{	
 		printf("Unable to initialize the parameters.\n");
 		return (1);
 	}
 	if (!create_default(argc, argv, &def))
 	{
-		free_def(def);
+		free_def(&def);
 		printf("Unable to initialize the parameters.\n");
 		return (1);
 	}
-	if (!solution(def))
+	if (!solution(&def))
 	{
-		free_def(def);
+		free_def(&def);
 		printf("Unable to finish the solution.\n");
 		return (1);
 	}

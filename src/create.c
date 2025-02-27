@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 20:42:14 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:20:02 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,26 @@ bool	create_fork(t_default *def)
 	return (1);
 }
 
-bool	create_default(int argc, char **argv, t_default **def)
+bool	create_default(int argc, char **argv, t_default *def)
 {
-	*def = (t_default *)malloc(sizeof(t_default));
-	if (!def)
-		return ((bool)ft_putstr_fd_return(ERR_MALLOC, STDERR_FILENO, 0));
-	(*def)->stop = 0;
-	(*def)->n_philo = ft_atoi(argv[1]);
-	(*def)->t_die = ft_atoi(argv[2]);
-	(*def)->t_eat = ft_atoi(argv[3]);
-	(*def)->t_sleep = ft_atoi(argv[4]);
-	if (!(*def)->n_philo || !(*def)->t_die || !(*def)->t_eat \
-										|| !(*def)->t_sleep)
+	def->stop = 0;
+	def->n_philo = ft_atoi(argv[1]);
+	def->t_die = ft_atoi(argv[2]);
+	def->t_eat = ft_atoi(argv[3]);
+	def->t_sleep = ft_atoi(argv[4]);
+	if (!def->n_philo || !def->t_die || !def->t_eat \
+										|| !def->t_sleep)
 		return ((bool)ft_putstr_fd_return(ERR_ZERO_ARG, STDERR_FILENO, 0));
-	(*def)->n_eats = -1;
+	def->n_eats = -1;
 	if (argc == 6)
-		(*def)->n_eats = ft_atoi(argv[5]);
-	if (!mtx_action(&(*def)->mtx_print_lock, INIT, *def))
+		def->n_eats = ft_atoi(argv[5]);
+	if (!mtx_action(&def->mtx_print_lock, INIT, def))
 		return (0);
-	if (!mtx_action(&(*def)->mtx_stop, INIT, *def))
+	if (!mtx_action(&def->mtx_stop, INIT, def))
 		return (0);
-	if (!create_fork(*def))
+	if (!create_fork(def))
 		return (0);
-	if (!create_philo(*def))
+	if (!create_philo(def))
 		return (0);
 	return (1);
 }

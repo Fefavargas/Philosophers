@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 20:40:05 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/27 18:14:48 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void				ft_is_dead(t_default *def, t_philo *philo);
 bool				action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac);
 
 //create.c
-bool				create_default(int argc, char **argv, t_default **def);
+bool				create_default(int argc, char **argv, t_default *def);
 
 //checker.c
 bool				checker_args(char **argv);

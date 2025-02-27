@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/26 19:13:33 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/26 21:06:42 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,20 @@ void	*monitor(void *arg)
 	return (0);
 }
 
-bool	start_monitoring(t_default *def)
-{
-	if (!def->n_eats)
-		return (1);
-	if (pthread_create(&def->monitor, NULL, &monitor, def))
-		return (ft_putstr_fd_return(ERR_TH_MONI, STDERR_FILENO, 0));
-	return (1);
-}
+// bool	start_monitoring(t_default *def)
+// {
+// 	if (!def->n_eats)
+// 		return (1);
+// 	if (pthread_create(&def->monitor, NULL, &monitor, def))
+// 		return (ft_putstr_fd_return(ERR_TH_MONI, STDERR_FILENO, 0));
+// 	return (1);
+// }
 
-bool	end_monitoring(t_default *def)
-{
-	if (!def->n_eats)
-		return (1);
-	if (pthread_join(def->monitor, NULL))
-		return (ft_putstr_fd_return(ERR_TH_JOIN, STDERR_FILENO, 0));
-	return (1);
-}
+// bool	end_monitoring(t_default *def)
+// {
+// 	if (!def->n_eats)
+// 		return (1);
+// 	if (pthread_join(def->monitor, NULL))
+// 		return (ft_putstr_fd_return(ERR_TH_JOIN, STDERR_FILENO, 0));
+// 	return (1);
+// }
