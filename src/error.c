@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:15:53 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 12:47:07 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:25:44 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	destroy_mtx(t_default *def)
 		mtx_action(&def->philos[i].mtx_meal_lock, DESTROY, def);
 		free(&def->philos[i++]);
 	}
-	i = 0;
-	while (i < def->n_philo)
-		(void)mtx_action(&def->forks[i++], DESTROY, def);
+	// i = 0;
+	// while (i < def->n_philo)
+	// {
+	// 		mtx_action(&def->forks[i], DESTROY, def);
+	// 		i++;
+	// }
 	mtx_action(&def->mtx_print_lock, DESTROY, def);
 	mtx_action(&def->mtx_stop, DESTROY, def);
 }

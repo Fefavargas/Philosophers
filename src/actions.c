@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/28 17:39:16 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:26:43 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 		return (0);
 	if (philo->id % 2)
 	{
-		if (!philo->n_eats)
-			usleep(100);
 		if (!action_forks(philo->l_fork, philo, ac))
 		{
 			return (0);
@@ -52,6 +50,8 @@ bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 	}
 	else
 	{
+		if (!philo->n_eats)
+			usleep(100);
 		if (!action_forks(philo->r_fork, philo, ac))
 			return (0);
 		if (!action_forks(philo->l_fork, philo, ac))

@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 12:49:21 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 18:01:45 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static bool	init_philo(t_default *def, int index)
 {
 	def->philos[index].n_eats = 0;
-	def->philos[index].id = index;
+	def->philos[index].id = index + 1;
 	def->philos[index].l_fork = &(def->forks[index]);
 	def->philos[index].r_fork = &(def->forks[(index + 1) % def->n_philo]);
 	def->philos[index].def = def;
