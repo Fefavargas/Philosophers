@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/28 23:11:32 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:24:20 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	check_full(t_default *def, t_philo *philo)
 	int	full;
 
 	full = 0;
-	mtx_perform_action(&philo->def->mtx_meal_lock, LOCK);
+	mtx_action(&philo->def->mtx_meal_lock, LOCK);
 	if (def->n_eats <= philo->n_eats)
 		full = 1;
-	mtx_perform_action(&philo->def->mtx_meal_lock, UNLOCK);
+	mtx_action(&philo->def->mtx_meal_lock, UNLOCK);
 	return (full);
 }
 
@@ -39,7 +39,7 @@ bool	check_full_philos(t_default *def)
 		if (!check_full(def, &def->philos[i++]))
 			return (0);
 	}
-	mutex_stop(def);
+	mtx_stop(def);
 	return (1);
 }
 
@@ -53,11 +53,11 @@ int	check_starving(t_philo *philo)
 	int					result;
 
 	result = 0;
-	mtx_perform_action(&philo->def->mtx_meal_lock, LOCK);
+	mtx_action(&philo->def->mtx_meal_lock, LOCK);
 	if (philo->def->t_started + philo->last_meal + \
 			philo->def->t_die < get_time())
 		result = 1;
-	mtx_perform_action(&philo->def->mtx_meal_lock, UNLOCK);
+	mtx_action(&philo->def->mtx_meal_lock, UNLOCK);
 	return (result);
 }
 

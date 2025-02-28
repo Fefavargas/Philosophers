@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:15:53 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 22:49:29 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:23:41 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	destroy_mtx(t_default *def)
 	i = 0;
 	while (i < def->n_philo)
 	{
-		mtx_perform_action(&def->forks[i++], DESTROY);
+		mtx_action(&def->forks[i++], DESTROY);
 		free(&def->philos[i++]);
 	}
-	mtx_perform_action(&def->mtx_print_lock, DESTROY);
-	mtx_perform_action(&def->mtx_meal_lock, DESTROY);
+	mtx_action(&def->mtx_print_lock, DESTROY);
+	mtx_action(&def->mtx_meal_lock, DESTROY);
 }
 
 void	print_err_free_def(t_default *def, char *msg)
@@ -32,42 +32,4 @@ void	print_err_free_def(t_default *def, char *msg)
 	ft_putstr_fd(msg, STDERR_FILENO);
 }
 
-
-// void	free_fork_index(t_default *def, size_t index)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (i > 0 && i < index)
-// 		(void)mtx_action(&def->forks[i++], DESTROY, def);
-// 	free(def->forks);
-// }
-
-// void	free_philos(t_default *def)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	if (def && !def->philos)
-// 	{
-// 		while (i < def->n_philo)
-// 		{
-// 			mtx_action(&def->philos[i].mtx_meal_lock, DESTROY, def);
-// 			free(&def->philos[i++]);
-// 		}
-// 		free(def->philos);
-// 	}
-// }
-
-// void	free_def(t_default *def)
-// {
-// 	if (!def)
-// 		return ;
-// 	if (def->philos)
-// 		free_philos(def);
-// 	if (def->forks)
-// 		free_fork_index(def, def->n_philo);
-// 	mtx_action(&def->mtx_print_lock, DESTROY, def);
-// 	mtx_action(&def->mtx_stop, DESTROY, def);
-// }
 

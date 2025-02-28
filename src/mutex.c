@@ -6,13 +6,13 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:24:44 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 22:51:15 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:24:26 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	mtx_perform_action(t_mtx *mutex, t_mtx_action action)
+int	mtx_action(t_mtx *mutex, t_mtx_action action)
 {
 	int	result;
 
@@ -30,29 +30,19 @@ int	mtx_perform_action(t_mtx *mutex, t_mtx_action action)
 	return (0);
 }
 
-// bool	mtx_action(t_mtx *mutex, t_mtx_action action, t_default *def)
-// {
-// 	if (!mtx_perform_action(mutex, action))
-// 	{
-// 		destroy_mtx(def);
-// 		return (0);
-// 	}
-// 	return (1);
-// }
-
-void	mutex_stop(t_default *def)
+void	mtx_stop(t_default *def)
 {
-	mtx_perform_action(&def->mtx_meal_lock, LOCK);
+	mtx_action(&def->mtx_meal_lock, LOCK);
 	def->stop = 1;
-	mtx_perform_action(&def->mtx_meal_lock, UNLOCK);
+	mtx_action(&def->mtx_meal_lock, UNLOCK);
 }
 
-bool	get_mutex_stop(t_default *def)
+bool	get_mtx_stop(t_default *def)
 {
 	bool	value;
 
-	mtx_perform_action(&def->mtx_meal_lock, LOCK);
+	mtx_action(&def->mtx_meal_lock, LOCK);
 	value = def->stop;
-	mtx_perform_action(&def->mtx_meal_lock, UNLOCK);
+	mtx_action(&def->mtx_meal_lock, UNLOCK);
 	return (value);
 }

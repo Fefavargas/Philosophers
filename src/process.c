@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 23:01:27 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:28:12 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*philo_process(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!get_mutex_stop(philo->def))
+	while (!get_mtx_stop(philo->def))
 	{
 		ft_eat(philo);
 		ft_sleep(philo);
