@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 21:04:28 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:02:27 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,7 @@ bool	create_fork(t_default *def)
 	}
 	i = 0;
 	while (i < def->n_philo)
-	{
-		// if (!mtx_action(&def->forks[i], INIT, def))
-		// {
-		// 	free_fork_index(def, i);
-		// 	return (0);
-		// }
-		mtx_action(&def->forks[i], INIT, def);
-		i++;
-	}
+		mtx_perform_action(&def->forks[i++], INIT);
 	return (1);
 }
 
@@ -75,10 +67,8 @@ bool	create_default(int argc, char **argv, t_default *def)
 	def->n_eats = -1;
 	if (argc == 6)
 		def->n_eats = ft_atoi(argv[5]);
-	if (!mtx_action(&def->mtx_print_lock, INIT, def))
-		return (0);
-	if (!mtx_action(&def->mtx_meal_lock, INIT, def))
-		return (0);
+	mtx_perform_action(&def->mtx_print_lock, INIT);
+	mtx_perform_action(&def->mtx_meal_lock, INIT);
 	if (!create_fork(def))
 		return (0);
 	if (!create_philo(def))

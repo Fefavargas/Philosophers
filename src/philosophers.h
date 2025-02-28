@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 21:02:52 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:12:29 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ typedef struct s_default
 }	t_default;
 
 //action,c 
-bool				sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
-						unsigned long long timestamp);
+bool				ft_sleep(t_philo *philo);
 bool				pick_drop_forks(t_philo *philo, t_mtx_action ac);
-bool				eat(t_philo *philo);
+bool				ft_eat(t_philo *philo);
 void				ft_is_dead(t_default *def, t_philo *philo);
 bool				action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac);
+void				ft_think(t_philo *philo);
 
 //create.c
 bool				create_default(int argc, char **argv, t_default *def);
@@ -128,7 +128,7 @@ void				print_err_free_def(t_default *def, char *msg);
 void				destroy_mtx(t_default *def);
 
 //log.c
-bool				print_log(t_philo *philo, unsigned long long timestamp, \
+void				print_log(t_philo *philo, unsigned long long timestamp, \
 						t_philo_action ac);
 
 //monitor.c
@@ -139,8 +139,8 @@ int					check_starving(t_philo *philo);
 int					check_full(t_default *def, t_philo *philo);
 
 //mutex.c
-bool				mtx_action(t_mtx *mutex, t_mtx_action action, \
-						t_default *def);
+// bool				mtx_action(t_mtx *mutex, t_mtx_action action, \
+// 						t_default *def);
 int					mtx_perform_action(t_mtx *mutex, t_mtx_action action);
 void				mutex_stop(t_default *def);
 bool				get_mutex_stop(t_default *def);

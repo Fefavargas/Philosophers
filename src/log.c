@@ -6,19 +6,24 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:51:59 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 18:02:19 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 23:12:15 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-bool	print_log(t_philo *philo, unsigned long long timestamp, \
+void	ft_is_dead(t_default *def, t_philo *philo)
+{
+	print_log(philo, get_time() - def->t_started, DIE);
+	mutex_stop(def);
+}
+
+void	print_log(t_philo *philo, unsigned long long timestamp, \
 					t_philo_action ac)
 {
-	// if (get_mutex_stop(philo->def))
-	// 	return (1);
-	if (!mtx_perform_action(&philo->def->mtx_print_lock, LOCK))
-		return (0);
+	if (get_mutex_stop(philo->def))
+		return ;
+	mtx_perform_action(&philo->def->mtx_print_lock, LOCK);
 	if (ac == FORK)
 		printf("%llu %d has taken a fork\n", timestamp, philo->id);
 	else if (ac == EAT)
@@ -29,7 +34,5 @@ bool	print_log(t_philo *philo, unsigned long long timestamp, \
 		printf("%llu %d is thinking\n", timestamp, philo->id);
 	else if (ac == DIE)
 		printf("%llu %d died\n", timestamp, philo->id);
-	if (!mtx_perform_action(&philo->def->mtx_print_lock, UNLOCK))
-		return (0);
-	return (1);
+	mtx_perform_action(&philo->def->mtx_print_lock, UNLOCK);
 }
