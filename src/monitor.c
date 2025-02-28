@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/28 17:39:43 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 21:05:36 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	check_full(t_default *def, t_philo *philo)
 	int	full;
 
 	full = 0;
-	if (!mtx_action(&philo->mtx_meal_lock, LOCK, def))
+	if (!mtx_action(&philo->def->mtx_meal_lock, LOCK, def))
 		return (-1);
 	if (def->n_eats == philo->n_eats)
 		full = 1;
-	if (!mtx_action(&philo->mtx_meal_lock, UNLOCK, def))
+	if (!mtx_action(&philo->def->mtx_meal_lock, UNLOCK, def))
 		return (-1);
 	return (full);
 }
@@ -41,11 +41,11 @@ int	check_starving(t_philo *philo)
 	int					result;
 
 	result = 0;
-	if (!mtx_action(&philo->mtx_meal_lock, LOCK, philo->def))
+	if (!mtx_action(&philo->def->mtx_meal_lock, LOCK, philo->def))
 		return (-1);
 	if (philo->def->t_started + philo->last_meal + philo->def->t_die < get_time())
 		result = 1;
-	if (!mtx_action(&philo->mtx_meal_lock, UNLOCK, philo->def))
+	if (!mtx_action(&philo->def->mtx_meal_lock, UNLOCK, philo->def))
 		return (-1);
 	return (result);
 }
@@ -97,7 +97,7 @@ void	*monitor(void *arg)
 			return (0);
 		if (check_starv_philos(def))
 			return (0);
-		usleep(100);
+		//usleep(100);
 	}
 	return (0);
 }

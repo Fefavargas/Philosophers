@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:24:44 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 17:38:10 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 21:06:59 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ bool	mtx_action(t_mtx *mutex, t_mtx_action action, t_default *def)
 	if (!mtx_perform_action(mutex, action))
 	{
 		destroy_mtx(def);
-		//free_def(&def);
 		return (0);
 	}
 	return (1);
@@ -43,17 +42,17 @@ bool	mtx_action(t_mtx *mutex, t_mtx_action action, t_default *def)
 
 void	mutex_stop(t_default *def)
 {
-	mtx_action(&def->mtx_stop, LOCK, def);
+	mtx_action(&def->mtx_meal_lock, LOCK, def);
 	def->stop = 1;
-	mtx_action(&def->mtx_stop, UNLOCK, def);
+	mtx_action(&def->mtx_meal_lock, UNLOCK, def);
 }
 
 bool	get_mutex_stop(t_default *def)
 {
 	bool	value;
 
-	mtx_action(&def->mtx_stop, LOCK, def);
+	mtx_action(&def->mtx_meal_lock, LOCK, def);
 	value = def->stop;
-	mtx_action(&def->mtx_stop, UNLOCK, def);
+	mtx_action(&def->mtx_meal_lock, UNLOCK, def);
 	return (value);
 }

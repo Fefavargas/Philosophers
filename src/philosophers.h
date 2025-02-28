@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 17:38:02 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 21:02:52 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef enum e_philo_action
 	unsigned int		t_eat; -> pointer to the eat time
 	unsigned int		t_sleep; -> pointer to the sleep time
 	int					n_eats; -> number of times the philo has eaten
-	t_mtx				mtx_meal_lock; -> mutex for the meal lock
 	unsigned long long	last_meal; -> last time the philo ate
 	t_mtx				*r_fork; -> pointer to the right fork
 	t_mtx				*l_fork; -> pointer to the left fork
@@ -72,7 +71,6 @@ typedef struct s_philo
 	pthread_t			thread_id;
 	int					id;
 	int					n_eats;
-	t_mtx				mtx_meal_lock;
 	unsigned long long	last_meal;
 	t_mtx				*r_fork;
 	t_mtx				*l_fork;
@@ -88,7 +86,7 @@ typedef struct s_philo
 	t_philo				*philos; -> array of philosophers
 	t_mtx				*forks; -> array of forks
 	t_mtx				mtx_print_lock; -> mutex for print lock
-	t_mtx				mtx_stop; -> mutex for stop
+	t_mtx				mtx_meal_lock; -> mutex for stop
 	bool				stop; -> stop variable
 	unsigned long long	t_started; -> start time
 	pthread_t			monitor; -> monitor thread
@@ -103,17 +101,17 @@ typedef struct s_default
 	t_philo				*philos;
 	t_mtx				*forks;
 	t_mtx				mtx_print_lock;
-	t_mtx				mtx_stop;
+	t_mtx				mtx_meal_lock;
 	bool				stop;		
 	unsigned long long	t_started;
 	pthread_t			monitor;
 }	t_default;
 
 //action,c 
-void				sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
+bool				sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
 						unsigned long long timestamp);
 bool				pick_drop_forks(t_philo *philo, t_mtx_action ac);
-void				eat(t_philo *philo);
+bool				eat(t_philo *philo);
 void				ft_is_dead(t_default *def, t_philo *philo);
 bool				action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac);
 

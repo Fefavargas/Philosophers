@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/28 18:26:43 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 21:11:03 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac)
  */
 bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 {
-	if (get_mutex_stop(philo->def))
+	if (get_mutex_stop(philo->def) && ac == LOCK)
 		return (0);
 	if (philo->id % 2)
 	{
@@ -60,34 +60,29 @@ bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 	return (1);
 }
 
-void	eat(t_philo *philo)
+bool	eat(t_philo *philo)
 {
 	if (get_mutex_stop(philo->def))
-		return ;
+		return (0);
 	philo->n_eats++;
-	if (!mtx_perform_action(&philo->mtx_meal_lock, LOCK))
-	{
-		pick_drop_forks(philo, UNLOCK);
-		return ;
-	}
+	mtx_perform_action(&philo->def->mtx_meal_lock, LOCK);
 	philo->last_meal = get_time() - philo->def->t_started;
-	if (!mtx_perform_action(&philo->mtx_meal_lock, UNLOCK))
-	{
-		pick_drop_forks(philo, UNLOCK);
-		return ;
-	}
+	mtx_perform_action(&philo->def->mtx_meal_lock, UNLOCK);
 	print_log(philo, philo->last_meal, EAT);
 	precise_wait(philo->def->t_eat);
 	pick_drop_forks(philo, UNLOCK);
+	return (1);
 }
 
-void	sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
+bool	sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
 					unsigned long long timestamp)
 {
 	if (get_mutex_stop(philo->def))
-		return ;
+		return (0);
 	print_log(philo, timestamp, ac);
-	precise_wait(waittime);
+	if (waittime > 0)
+		precise_wait(waittime);
+	return (1);
 }
 
 void	ft_is_dead(t_default *def, t_philo *philo)

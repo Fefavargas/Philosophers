@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:14:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/09 22:29:22 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 20:48:23 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,11 @@ unsigned long long	get_time(void)
 bool	precise_wait(unsigned int waiting_time)
 {
 	unsigned long long	t_started;
-	unsigned long long	t_current;
 
 	t_started = get_time();
-	if (!t_started)
-		return (0);
 	while (1)
 	{
-		t_current = get_time();
-		if (!t_current)
-			return (0);
-		if (t_current >= t_started + waiting_time)
+		if (get_time() >= t_started + waiting_time)
 			return (1);
 	}
 	return (0);

@@ -6,11 +6,32 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:15:53 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 18:25:44 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 21:04:55 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+void	destroy_mtx(t_default *def)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < def->n_philo)
+	{
+		mtx_action(&def->forks[i++], DESTROY, def);
+		free(&def->philos[i++]);
+	}
+	mtx_action(&def->mtx_print_lock, DESTROY, def);
+	mtx_action(&def->mtx_meal_lock, DESTROY, def);
+}
+
+void	print_err_free_def(t_default *def, char *msg)
+{
+	destroy_mtx(def);
+	ft_putstr_fd(msg, STDERR_FILENO);
+}
+
 
 // void	free_fork_index(t_default *def, size_t index)
 // {
@@ -50,29 +71,3 @@
 // 	mtx_action(&def->mtx_stop, DESTROY, def);
 // }
 
-void	destroy_mtx(t_default *def)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < def->n_philo)
-	{
-		mtx_action(&def->philos[i].mtx_meal_lock, DESTROY, def);
-		free(&def->philos[i++]);
-	}
-	// i = 0;
-	// while (i < def->n_philo)
-	// {
-	// 		mtx_action(&def->forks[i], DESTROY, def);
-	// 		i++;
-	// }
-	mtx_action(&def->mtx_print_lock, DESTROY, def);
-	mtx_action(&def->mtx_stop, DESTROY, def);
-}
-
-void	print_err_free_def(t_default *def, char *msg)
-{
-	destroy_mtx(def);
-	//free_def(def);
-	ft_putstr_fd(msg, STDERR_FILENO);
-}
