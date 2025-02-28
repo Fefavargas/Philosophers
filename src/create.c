@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:50:50 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/27 18:20:02 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:49:21 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ bool	create_fork(t_default *def)
 	i = 0;
 	while (i < def->n_philo)
 	{
-		if (!mtx_action(&def->forks[i], INIT, def))
-		{
-			free_fork_index(def, i);
-			return (0);
-		}
+		// if (!mtx_action(&def->forks[i], INIT, def))
+		// {
+		// 	free_fork_index(def, i);
+		// 	return (0);
+		// }
+		mtx_action(&def->forks[i], INIT, def);
 		i++;
 	}
 	return (1);

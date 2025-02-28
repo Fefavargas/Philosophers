@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/27 18:14:48 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:38:02 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,9 @@ bool				checker_args(char **argv);
 
 //erroc.c
 void				print_err_free_def(t_default *def, char *msg);
-void				free_fork_index(t_default *def, size_t index);
-void				free_def(t_default *def);
+// void				free_fork_index(t_default *def, size_t index);
+// void				free_def(t_default *def);
+void				destroy_mtx(t_default *def);
 
 //log.c
 bool				print_log(t_philo *philo, unsigned long long timestamp, \
@@ -136,7 +137,7 @@ bool				print_log(t_philo *philo, unsigned long long timestamp, \
 void				*monitor(void *arg);
 bool				start_monitoring(t_default *def);
 bool				end_monitoring(t_default *def);
-int					check_starving(t_default *def, t_philo *philo);
+int					check_starving(t_philo *philo);
 int					check_full(t_default *def, t_philo *philo);
 
 //mutex.c
@@ -144,8 +145,7 @@ bool				mtx_action(t_mtx *mutex, t_mtx_action action, \
 						t_default *def);
 int					mtx_perform_action(t_mtx *mutex, t_mtx_action action);
 void				mutex_stop(t_default *def);
-bool				get_mutex_stop_def(t_default *def);
-bool				get_mutex_stop_philo(t_philo *philo);
+bool				get_mutex_stop(t_default *def);
 
 //process.c
 bool				solution(t_default *def);

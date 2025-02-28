@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/26 20:56:43 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:39:50 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*philo_process(void *arg)
 	//unsigned long long	timestamp;
 
 	philo = (t_philo *)arg;
-	while (!get_mutex_stop_def(philo->def))
+	while (!get_mutex_stop(philo->def))
 	{
 		pick_drop_forks(philo, LOCK);
 		eat(philo);

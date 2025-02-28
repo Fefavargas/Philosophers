@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/26 20:41:54 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:39:16 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ bool	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac)
  */
 bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 {
+	if (get_mutex_stop(philo->def))
+		return (0);
 	if (philo->id % 2)
 	{
 		if (!philo->n_eats)
@@ -60,6 +62,8 @@ bool	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 
 void	eat(t_philo *philo)
 {
+	if (get_mutex_stop(philo->def))
+		return ;
 	philo->n_eats++;
 	if (!mtx_perform_action(&philo->mtx_meal_lock, LOCK))
 	{
@@ -80,6 +84,8 @@ void	eat(t_philo *philo)
 void	sleep_think(t_philo *philo, t_philo_action ac, unsigned int waittime, \
 					unsigned long long timestamp)
 {
+	if (get_mutex_stop(philo->def))
+		return ;
 	print_log(philo, timestamp, ac);
 	precise_wait(waittime);
 }
