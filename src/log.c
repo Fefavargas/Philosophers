@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   log.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:51:59 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 23:24:26 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:16:05 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_is_dead(t_default *def, t_philo *philo)
 void	print_log(t_philo *philo, unsigned long long timestamp, \
 					t_philo_action ac)
 {
+	timestamp = get_time() - philo->def->t_started;
 	if (get_mtx_stop(philo->def))
 		return ;
 	mtx_action(&philo->def->mtx_print_lock, LOCK);
