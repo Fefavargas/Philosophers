@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/03/01 14:35:22 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/03/01 15:15:20 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void	ft_think(t_philo *philo)
 	if (get_mtx_stop(philo->def))
 		return ;
 	print_log(philo, THINK); //CONFIRMED?
-	//precise_wait(philo->def->t_die - philo->def->t_eat - philo->def->t_sleep);
+	precise_wait(philo->def->t_die - philo->def->t_eat - philo->def->t_sleep);
 }
