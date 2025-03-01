@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 15:19:22 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 22:38:00 by fefa             ###   ########.fr       */
+/*   Updated: 2025/03/01 14:30:46 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	end_threads(t_default *def)
 
 void	solution_one_philo(t_default *def)
 {
-	print_log(&def->philos[0], get_time(), FORK);
+	print_log(&def->philos[0], FORK);
 	precise_wait(def->t_die);
 	ft_is_dead(def, &def->philos[0]);
 	destroy_mtx(def);

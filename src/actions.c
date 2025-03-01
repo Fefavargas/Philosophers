@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/28 22:42:59 by fefa             ###   ########.fr       */
+/*   Updated: 2025/03/01 14:35:22 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac)
 {
 	mtx_action(fork, ac);
 	if (ac == LOCK)
-		print_log(philo, get_time() - philo->def->t_started, FORK);
+		print_log(philo, FORK);
 }
 
 /**
@@ -51,7 +51,7 @@ void	ft_eat(t_philo *philo)
 	philo->last_meal = get_time() - philo->def->t_started;
 	philo->n_eats++;
 	mtx_action(&philo->def->mtx_meal_lock, UNLOCK);
-	print_log(philo, philo->last_meal, EAT);
+	print_log(philo, EAT);
 	precise_wait(philo->def->t_eat);
 	pick_drop_forks(philo, UNLOCK);
 
@@ -61,7 +61,7 @@ void	ft_sleep(t_philo *philo)
 {
 	if (get_mtx_stop(philo->def))
 		return ;
-	print_log(philo, get_time() - philo->def->t_started, SLEEP);
+	print_log(philo, SLEEP);
 	precise_wait(philo->def->t_sleep);
 }
 
@@ -69,6 +69,6 @@ void	ft_think(t_philo *philo)
 {
 	if (get_mtx_stop(philo->def))
 		return ;
-	print_log(philo, get_time() - philo->def->t_started, THINK); //CONFIRMED?
+	print_log(philo, THINK); //CONFIRMED?
 	//precise_wait(philo->def->t_die - philo->def->t_eat - philo->def->t_sleep);
 }

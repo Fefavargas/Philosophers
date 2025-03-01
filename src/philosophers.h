@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 22:36:59 by fefa             ###   ########.fr       */
+/*   Updated: 2025/03/01 14:28:42 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,7 @@ void				destroy_mtx(t_default *def);
 
 //log.c
 void				ft_is_dead(t_default *def, t_philo *philo);
-void				print_log(t_philo *philo, unsigned long long timestamp, \
-						t_philo_action ac);
+void				print_log(t_philo *philo, t_philo_action ac);
 
 //monitor.c
 void				*monitor(void *arg);
