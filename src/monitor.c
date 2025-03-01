@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/02/28 23:24:20 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:42:41 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_full(t_default *def, t_philo *philo)
 
 	full = 0;
 	mtx_action(&philo->def->mtx_meal_lock, LOCK);
-	if (def->n_eats <= philo->n_eats)
+	if (def->n_eats <= philo->n_eats) //CONFIRMED?
 		full = 1;
 	mtx_action(&philo->def->mtx_meal_lock, UNLOCK);
 	return (full);

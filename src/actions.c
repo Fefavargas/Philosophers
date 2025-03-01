@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/03/01 00:14:11 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:42:59 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	ft_think(t_philo *philo)
 {
 	if (get_mtx_stop(philo->def))
 		return ;
-	print_log(philo, get_time() - philo->def->t_started, THINK);
+	print_log(philo, get_time() - philo->def->t_started, THINK); //CONFIRMED?
 	//precise_wait(philo->def->t_die - philo->def->t_eat - philo->def->t_sleep);
 }

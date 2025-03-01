@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 23:25:02 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:36:59 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void				mtx_stop(t_default *def);
 bool				get_mtx_stop(t_default *def);
 
 //process.c
-bool				solution(t_default *def);
+void				solution(t_default *def);
 
 //time.c
 unsigned long long	get_time(void);

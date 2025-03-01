@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fefa <fefa@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:54:01 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 22:45:02 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/02/28 22:34:11 by fefa             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ int	main(int argc, char **argv)
 		printf("Unable to initialize the parameters.\n");
 		return (1);
 	}
-	if (!solution(&def))
-	{
-		printf("Unable to finish the solution.\n");
-		return (1);
-	}
+	solution(&def);
 	return (0);
 }
