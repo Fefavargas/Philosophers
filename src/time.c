@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:14:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/02/28 20:48:23 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:49:41 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,6 @@ unsigned long long	get_time(void)
 	}
 	time_in_ms = (tv.tv_sec * 1000ULL) + (tv.tv_usec / 1000ULL);
 	return (time_in_ms);
-}
-
-bool	precise_wait(unsigned int waiting_time)
-{
-	unsigned long long	t_started;
-
-	t_started = get_time();
-	while (1)
-	{
-		if (get_time() >= t_started + waiting_time)
-			return (1);
-	}
-	return (0);
 }
 
 void	set_start_time(t_default *def)

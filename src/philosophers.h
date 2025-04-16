@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/04/16 14:31:58 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:49:45 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ void				solution(t_default *def);
 
 //time.c
 unsigned long long	get_time(void);
-bool				precise_wait(unsigned int waiting_time);
 void				set_start_time(t_default *def);
 
 //util.c

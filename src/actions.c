@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/04/16 14:22:28 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:52:14 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	pick_drop_forks(t_philo *philo, t_mtx_action ac)
 	else
 	{
 		if (!philo->n_eats)
-			usleep(100);
+			usleep(100ULL);
 		action_forks(philo->r_fork, philo, ac);
 		action_forks(philo->l_fork, philo, ac);
 	}
@@ -54,7 +54,7 @@ void	ft_eat(t_philo *philo)
 	philo->n_eats++;
 	mtx_action(&philo->def->mtx_meal_lock, UNLOCK);
 	print_log(philo, EAT);
-	precise_wait(philo->def->t_eat);
+	usleep(philo->def->t_eat * 1000ULL);
 	pick_drop_forks(philo, UNLOCK);
 }
 
@@ -63,7 +63,7 @@ void	ft_sleep(t_philo *philo)
 	if (get_mtx_stop(philo->def))
 		return ;
 	print_log(philo, SLEEP);
-	precise_wait(philo->def->t_sleep);
+	usleep(philo->def->t_sleep * 1000ULL);
 }
 
 void	ft_think(t_philo *philo)
@@ -71,5 +71,5 @@ void	ft_think(t_philo *philo)
 	if (get_mtx_stop(philo->def))
 		return ;
 	print_log(philo, THINK);
-	precise_wait(1);
+	usleep(1000ULL);
 }
