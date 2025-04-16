@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:44:22 by fefa              #+#    #+#             */
-/*   Updated: 2025/03/01 15:15:20 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:22:28 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	action_forks(t_mtx *fork, t_philo *philo, t_mtx_action ac)
 }
 
 /**
- Function to get the fork first into left side for odd index_numbers and first right side for even index_number
+ Function to get the fork first into left side for odd index_numbers 
+ and first right side for even index_number
  Same function for pick or drop action
- --odd numbers wait usleep(100) in the first meal to make sure that all even numbers take the fork together
+ --odd numbers wait usleep(100) in the first meal to make sure that 
+ all even numbers take the fork together
  PICK_FORK 
 		ac = LOCK
  DROP_FORK
@@ -54,7 +56,6 @@ void	ft_eat(t_philo *philo)
 	print_log(philo, EAT);
 	precise_wait(philo->def->t_eat);
 	pick_drop_forks(philo, UNLOCK);
-
 }
 
 void	ft_sleep(t_philo *philo)
@@ -69,6 +70,6 @@ void	ft_think(t_philo *philo)
 {
 	if (get_mtx_stop(philo->def))
 		return ;
-	print_log(philo, THINK); //CONFIRMED?
-	precise_wait(philo->def->t_die - philo->def->t_eat - philo->def->t_sleep);
+	print_log(philo, THINK);
+	precise_wait(1);
 }

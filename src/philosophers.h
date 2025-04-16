@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:00:23 by fvargas           #+#    #+#             */
-/*   Updated: 2025/03/01 14:28:42 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:31:58 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,19 @@
 # define PHILOSOPHERS_H
 
 # include <unistd.h> //write
-# include <stdio.h> //printf //DELETE
+# include <stdio.h> //printf
 # include <stddef.h> //size_of
 # include <limits.h> //INT_MIN
 # include <stdlib.h> //malloc, free
 # include <stdbool.h> //bool
 # include <sys/time.h> // gettimeofday()
 # include <pthread.h> // Thread functions, like pthread_create() etc.
-
 # define ERR_MALLOC		"ERROR: malloc() failed.\n"
 # define ERR_MTX		"ERROR: mutex function failed.\n"
 # define ERR_GET_TIME	"ERROR: gettimeofday() function.\n"
-# define ERR_TIME_DIE	"ERROR: Time_die should be bigger \
-						than Time_eat + Time_sleep.\n"
 # define ERR_ZERO_ARG	"ERROR: Argument ZERO not allowed for this variable.\n"
 # define ERR_INTEGER	"ERROR: There is an argument that is not a \
-						positive integer\n"
-# define ERR_TH_MONI	"ERROR: THREAD Monitor creater\n"
-# define ERR_TH_JOIN	"ERROR: THREAD Monitor join\n"
+positive integer\n"
 
 typedef pthread_mutex_t		t_mtx; // Abbreviation for 'pthread_mutex_t'
 typedef struct s_default	t_default;
@@ -52,7 +47,6 @@ typedef enum e_philo_action
 	THINK,
 	DIE
 }	t_philo_action;
-
 
 /**
 	pthread_t			thread_id; -> each philo has a thread_id

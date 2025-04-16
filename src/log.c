@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 19:51:59 by fvargas           #+#    #+#             */
-/*   Updated: 2025/03/01 14:28:24 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/04/16 14:31:49 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_is_dead(t_default *def, t_philo *philo)
 
 void	print_log(t_philo *philo, t_philo_action ac)
 {
-	unsigned long long timestamp;
-	
+	unsigned long long	timestamp;
+
 	if (get_mtx_stop(philo->def))
 		return ;
 	mtx_action(&philo->def->mtx_print_lock, LOCK);

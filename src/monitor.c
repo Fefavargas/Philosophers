@@ -6,7 +6,7 @@
 /*   By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:45:23 by fefa              #+#    #+#             */
-/*   Updated: 2025/03/01 15:26:48 by fvargas          ###   ########.fr       */
+/*   Updated: 2025/04/16 12:52:51 by fvargas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,6 @@ int	check_full(t_default *def, t_philo *philo)
 	mtx_action(&philo->def->mtx_meal_lock, UNLOCK);
 	return (full);
 }
-
-// bool	check_full_philos(t_default *def)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	mtx_action(&def->mtx_meal_lock, LOCK);
-// 	while (i < def->n_philo)
-// 	{
-// 		if (def->n_eats != def->philos[i].n_eats)
-// 		{
-// 			mtx_action(&def->mtx_meal_lock, UNLOCK);
-// 			return (0);
-// 		}
-// 		i++;
-// 	}
-// 	mtx_action(&def->mtx_meal_lock, UNLOCK);
-// 	mtx_stop(def);
-// 	return (1);
-// }
 
 bool	check_full_philos(t_default *def)
 {

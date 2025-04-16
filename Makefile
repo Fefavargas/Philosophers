@@ -6,11 +6,11 @@
 #    By: fvargas <fvargas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/03 14:11:54 by fvargas           #+#    #+#              #
-#    Updated: 2025/02/26 19:54:11 by fvargas          ###   ########.fr        #
+#    Updated: 2025/04/16 12:04:15 by fvargas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 		philosophers
+NAME = 		philo
 CC = 		cc
 CFLAGS = 	-Wall -Wextra -Werror -g
 HDRS :=		src/philosophers.h
